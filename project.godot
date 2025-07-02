@@ -15,6 +15,11 @@ run/main_scene="uid://bvc6repdfk8sv"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Helpers="*res://scripts/helpers.gd"
+ConfigHandler="*res://scripts/config_handler.gd"
+
 [rendering]
 
 renderer/rendering_method="mobile"
