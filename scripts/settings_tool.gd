@@ -23,20 +23,17 @@ func _ready():
 func update_api_key(system):
 	var system_string = ""
 	var key = ""
-	if system_string == "ab":
+	if system == "ab":
 		system_string = "ABUSE_IP_API_KEY"
 		key = %AbuseIPDBAPIKey.text
-	elif system_string == "vt":
+	elif system == "vt":
 		system_string = "VT_API_KEY"
 		key = %VTText.text
-	elif system_string == "is":
+	elif system == "is":
 		system_string = "IPSCORE_API_KEY"
 		key = %IPScoreText.text
 
-		
-	
-
-		
+	print(system_string, key)
 	ConfigHandler.update_config_setting(system_string, key)
 	print(ConfigHandler.get_config_value(system_string))
 	emit_signal("updated_config", system_string)
