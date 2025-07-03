@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk6k86ro0etqm"]
+
+[ext_resource type="Script" uid="uid://0bo6blu608g8" path="res://scripts/tool_selector.gd" id="1_724q4"]
+
+[node name="ToolSelector" type="Control"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_724q4")
+tool_name = "IP Lookup Tool"
+
+[node name="ToolSelectionButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2

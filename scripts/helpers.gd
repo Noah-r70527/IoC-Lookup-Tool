@@ -94,6 +94,46 @@ static func parse_multi_url_lookup(data_in: Dictionary):
 		
 	return resulting_string
 	
+	
+static func parse_ipscore(data_in: Dictionary):
+	if data_in.get("Error"):
+		return "Error: %s" % data_in.get("Error")
+		
+	var parsed_results = {
+		"Domain": data_in.get("domain"),
+		"Reported for spam": data_in.get("spamming"),
+		"Reported for malware": data_in.get("malware"),
+		"Reported for phishing": data_in.get("phishing"),
+		"Risk Score": data_in.get("risk_score"),
+		"Country Code": data_in.get("country_code")
+	}
+	
+	var resulting_string = ""
+	for key in parsed_results:
+		resulting_string += "[color=gray]%s[/color]: [color=white]%s[/color]\n" % [key, parsed_results[key]]
+	
+	return resulting_string
+	
+	
+static func parse_multi_ipscore(data_in: Dictionary):
+	if data_in.get("Error"):
+		return "Error: %s" % data_in.get("Error")
+		
+	var parsed_results = {
+		"Domain": data_in.get("domain"),
+		"Reported for spam": data_in.get("spamming"),
+		"Reported for malware": data_in.get("malware"),
+		"Reported for phishing": data_in.get("phishing"),
+		"Risk Score": data_in.get("risk_score"),
+		"Country Code": data_in.get("country_code")
+	}
+	
+	var resulting_string = ""
+	for key in parsed_results:
+		resulting_string += "	[color=gray]%s[/color]: [color=white]%s[/color]\n" % [key, parsed_results[key]]
+	
+	return resulting_string
+	
 static func sum_array(array):
 	var sum = 0
 	for element in array:

@@ -4,7 +4,7 @@ extends Button
 @onready var button = %SingleIPButton
 
 
-func _ready():
+func _ready(): 
 	button.pressed.connect(do_single_IP_Lookup)
 	
 	if not %HTTPRequest.ab_ip_key:

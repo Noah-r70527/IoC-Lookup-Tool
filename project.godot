@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="IPLookupToolGD"
-run/main_scene="uid://bvc6repdfk8sv"
+run/main_scene="uid://dy77c8ent20lg"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 

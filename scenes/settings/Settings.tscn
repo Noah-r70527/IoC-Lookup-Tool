@@ -1,0 +1,132 @@
+[gd_scene load_steps=5 format=3 uid="uid://dteusiuuxdcg3"]
+
+[ext_resource type="Script" uid="uid://b2fv8iuaj0d8h" path="res://scripts/settings_tool.gd" id="1_ksth8"]
+[ext_resource type="Theme" uid="uid://cvjkotbfb80tq" path="res://assets/UIMainTheme.tres" id="2_wjxgb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jehqg"]
+border_width_left = 100
+border_width_top = 100
+border_width_right = 100
+border_width_bottom = 100
+border_blend = true
+
+[sub_resource type="Theme" id="Theme_ukskx"]
+HBoxContainer/constants/separation = 5
+VBoxContainer/styles/Style = SubResource("StyleBoxFlat_jehqg")
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ksth8")
+
+[node name="HBoxContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.8
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 20
+
+[node name="SingleLookupPanel" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_ukskx")
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="AbuseIPDBBox" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="AbuseIPDBAPIKey" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/AbuseIPDBBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+placeholder_text = "**********************************"
+
+[node name="AbuseIPDBButton" type="Button" parent="HBoxContainer/SingleLookupPanel/AbuseIPDBBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wjxgb")
+text = "Update AbuseIPDB 
+API Key
+"
+
+[node name="VTBox" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="VTText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/VTBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+placeholder_text = "**********************************"
+
+[node name="VTButton" type="Button" parent="HBoxContainer/SingleLookupPanel/VTBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wjxgb")
+text = "Update Virus Total
+API Key"
+
+[node name="IPScore" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="IPScoreText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/IPScore"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+placeholder_text = "**********************************"
+
+[node name="IPScoreButton" type="Button" parent="HBoxContainer/SingleLookupPanel/IPScore"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wjxgb")
+text = "Update IP Score
+API Key"
+
+[node name="LogIPToCSV" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="HBoxContainer/SingleLookupPanel/LogIPToCSV"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+text = "Log output of IP Lookup tool to CSV?"
+
+[node name="IPCsvCheck" type="CheckButton" parent="HBoxContainer/SingleLookupPanel/LogIPToCSV"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="LogURLToCSV" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="HBoxContainer/SingleLookupPanel/LogURLToCSV"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+text = "Log output of URL Lookup tool to CSV?"
+
+[node name="URLCsvCheck" type="CheckButton" parent="HBoxContainer/SingleLookupPanel/LogURLToCSV"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
