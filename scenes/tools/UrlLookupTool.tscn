@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bhxhbrimod6r8"]
 
-[ext_resource type="Script" uid="uid://d2qgm0m7jrpcb" path="res://scenes/tools/url_lookup_tool.gd" id="1_kfh15"]
+[ext_resource type="Script" uid="uid://d2qgm0m7jrpcb" path="res://scripts/url_lookup_tool.gd" id="1_kfh15"]
 [ext_resource type="Theme" uid="uid://cvjkotbfb80tq" path="res://assets/UIMainTheme.tres" id="2_kfh15"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jehqg"]

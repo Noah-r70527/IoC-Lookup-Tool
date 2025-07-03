@@ -17,6 +17,9 @@ func _ready():
 	network_button.pressed.connect(do_network_lookup)
 	report_button.pressed.connect(do_report_lookup)
 	multi_button.pressed.connect(do_multi_lookup)
+	if !ConfigHandler.get_config_value("ABUSE_IP_API_KEY"):
+		for button in [single_button, multi_button, network_button, report_button]:
+			button.disabled = true
 
 
 func do_single_IP_Lookup():

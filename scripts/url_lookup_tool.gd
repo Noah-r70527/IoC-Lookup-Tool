@@ -13,6 +13,11 @@ extends Control
 func _ready(): 
 	single_url_button.pressed.connect(do_single_url_Lookup)
 	multi_url_button.pressed.connect(do_multi_url_lookup)
+	
+	if !ConfigHandler.get_config_value("IPSCORE_API_KEY"):
+		for button in [multi_url_button, single_url_button, dns_lookup_button]:
+			button.disabled = true
+
 
 
 func do_single_url_Lookup():

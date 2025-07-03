@@ -1,11 +1,17 @@
 extends Control
 
 @onready var tool_box = %ToolBox
+@onready var output_display = %OutputDisplay
 
 func _ready():
+	if not ConfigHandler.get_config_value("ABUSE_IP_API_KEY"):
+		output_display.append_text("\n\n[color=red]WARNING[/color]: Abuse IP DB API key is missing. You will be unable to perform IP lookups. Please click the settings button, open settings.ini, and add the API key.")
+
+	if not ConfigHandler.get_config_value("IPSCORE_API_KEY"):
+			output_display.append_text("\n[color=red]WARNING[/color]: IPScore API key is missing. You will be unable to perform URL lookups. Please click the settings button, open settings.ini, and add the API key.")
+	
 	%SettingsButton.pressed.connect(on_settings_clicked)
 	%"Quit Button".pressed.connect(quit_program)
-
 	for node in %ToolVbox.get_children():
 		node.switch_tool.connect(handle_swap_tool)
 	
