@@ -4,6 +4,13 @@ extends Control
 @onready var output_display = %OutputDisplay
 
 func _ready():
+	var dir_access = DirAccess.open(OS.get_executable_path().get_base_dir())
+	if not dir_access.dir_exists("IPLookups"):
+		dir_access.make_dir("IPLookups")
+	if not dir_access.dir_exists("URLLookups"):
+		dir_access.make_dir("URLLookups")
+
+	
 	if not ConfigHandler.get_config_value("ABUSE_IP_API_KEY"):
 		output_display.append_text("\n\n[color=red]WARNING[/color]: Abuse IP DB API key is missing. You will be unable to perform IP lookups. Please click the settings button, open settings.ini, and add the API key.")
 
@@ -16,9 +23,14 @@ func _ready():
 		node.switch_tool.connect(handle_swap_tool)
 	
 func handle_swap_tool(tool_scene_path):
+	var scene_to_tool_name = {
+		"res://scenes/tools/IPLookupTool.tscn": "IP Lookup Tool",
+		"res://scenes/tools/UrlLookupTool.tscn": "URL Lookup Tool"
+	}
 	for node in tool_box.get_children():
 		print("Clearing Node: %s" % node)
 		tool_box.remove_child(node)
+	%CurrentToolLabel.text = "Current Tool:\n%s" % scene_to_tool_name.get(tool_scene_path)
 	%OutputDisplay.clear()
 	%OutputDisplay.append_text("[color=green]Swapping tool to: [/color]%s" % tool_scene_path)
 	$%ToolBox.add_child(load(tool_scene_path).instantiate())

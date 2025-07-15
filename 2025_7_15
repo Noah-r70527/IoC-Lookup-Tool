@@ -1,0 +1,2 @@
+ipAddress,isPublic,ipVersion,isWhitelisted,abuseConfidenceScore,countryCode,usageType,isp,domain,hostnames,isTor,totalReports,numDistinctUsers,lastReportedAt
+1.1.1.1,true,4.0,true,0.0,AU,Content Delivery Network,APNIC and Cloudflare DNS Resolver project,cloudflare.com,["one.one.one.one"],false,159.0,32.0,2025-07-15T14:46:11+00:00

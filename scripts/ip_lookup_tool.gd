@@ -30,6 +30,18 @@ func do_single_IP_Lookup():
 	print(result)
 	var output_text = Helpers.parse_ip_lookup(result)
 	output.append_text(output_text)
+	if ConfigHandler.get_config_value("LOG_IP_TO_CSV") == "true":
+		var dir_access = DirAccess.open("%s/IPLookups" % OS.get_executable_path().get_base_dir())
+		var date_time = Time.get_datetime_dict_from_system(false)
+		var folder_string = "%s_%s_%s" % [date_time.year, date_time.month, date_time.day]
+		if not dir_access.dir_exists(folder_string):
+			dir_access.make_dir(folder_string)
+		CsvHelper.write_csv_dict("%s/%s/single_lookup.csv" % [dir_access.get_current_dir(), folder_string],   #file name
+		[result.get("data")], # data to write
+		",", # delimiter
+		true # append to existing file?
+		)
+		
 	
 func do_network_lookup():
 	pass
@@ -41,6 +53,7 @@ func do_report_lookup():
 	
 func do_multi_lookup():
 	output.clear()
+	var output_list = []
 	var ip_list = %MultiIPText.text.split("\n")
 	output.append_text("Starting multi-IP lookup on %s IPs...\n\n" % len(ip_list))
 	for ip in ip_list:
@@ -48,7 +61,22 @@ func do_multi_lookup():
 		var result: Dictionary = await requester.make_abuseipdb_ip_request(ip)
 		var output_text = Helpers.parse_multi_ip_lookup(result)
 		output.append_text(output_text)
+		if result.get("data"):
+			output_list.append(result.get("data"))
 		await get_tree().create_timer(.5).timeout
+	
+	if ConfigHandler.get_config_value("LOG_IP_TO_CSV") == "true":
+		var dir_access = DirAccess.open("%s/IPLookups" % OS.get_executable_path().get_base_dir())
+		var date_time = Time.get_datetime_dict_from_system(false)
+		var folder_string = "%s_%s_%s" % [date_time.year, date_time.month, date_time.day]
+		if not dir_access.dir_exists(folder_string):
+			dir_access.make_dir(folder_string)
+			
+		CsvHelper.write_csv_dict("%s/%s/multi_lookup.csv" % [dir_access.get_current_dir(), folder_string],   #file name
+		output_list, # data to write
+		",", # delimiter
+		true # append to existing file?
+		)
 
 		
 	

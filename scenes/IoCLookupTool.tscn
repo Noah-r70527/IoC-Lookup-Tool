@@ -49,13 +49,15 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+theme_override_constants/separation = 50
+alignment = 1
 
 [node name="IP Lookup Tool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
 layout_mode = 2
 tool_path = "res://scenes/tools/IPLookupTool.tscn"
 
 [node name="URL Lookup Tool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
+visible = false
 layout_mode = 2
 tool_name = "URL Lookup Tool"
 tool_path = "res://scenes/tools/UrlLookupTool.tscn"
@@ -64,14 +66,14 @@ tool_path = "res://scenes/tools/UrlLookupTool.tscn"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.7
 theme_override_styles/panel = ExtResource("3_erkcc")
 
 [node name="SettingsVbox" type="VBoxContainer" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox"]
 layout_mode = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 20
 
 [node name="CurrentToolLabel" type="Label" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Current Tool:
 IP Lookup Tool"

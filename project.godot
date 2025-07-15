@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Helpers="*res://scripts/helpers.gd"
 ConfigHandler="*res://scripts/config_handler.gd"
+CsvHelper="*res://scenes/csv_helper.gd"
 
 [rendering]
 

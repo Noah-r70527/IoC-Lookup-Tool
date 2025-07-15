@@ -31,16 +31,13 @@ func make_abuseipdb_ip_request(ip_address: String) -> Dictionary:
 		"Accept: application/json",
 		"Key: %s" % ab_ip_key
 	]
-	print(headers)
 	var url = "%s?ipAddress=%s&maxAgeInDays=90" % [baseUrl, ip_address]
 	requestHandler.request(url, headers)
-
 	var result = await requestHandler.request_completed
 	var remaining = result[2][7].split(": ")[1]
 	ab_remaining = remaining
 	var body: PackedByteArray = result[3]
 	var parse_result = JSON.parse_string(body.get_string_from_utf8())
-	print(parse_result)
 	return parse_result
 
 func make_abuseipdb_network_request(ip_address: String) -> Dictionary:
@@ -116,7 +113,6 @@ func make_ipscore_url_request(input_value) -> Dictionary:
 		return {"Error": "Invalid input. Please enter a valid domain"}
 		
 	var baseUrl = "https://www.ipqualityscore.com/api/json/url/%s/%s?key=%s" % [ipscore_key, parsed_domain, ipscore_key]
-	print(baseUrl)
 	requestHandler.request(baseUrl)
 
 	var result = await requestHandler.request_completed

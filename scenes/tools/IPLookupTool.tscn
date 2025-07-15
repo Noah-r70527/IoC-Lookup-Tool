@@ -59,6 +59,7 @@ text = "Execute Single IP
 Lookup"
 
 [node name="NetworkLookupBox" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 4
 
@@ -77,6 +78,7 @@ text = "Execute Single IP
 Lookup"
 
 [node name="ReportLookupBox" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 4
 

@@ -13,7 +13,7 @@ func _ready():
 		config.save(SETTINGS_FILE_PATH)
 		
 	else:
-		var result = config.load(SETTINGS_FILE_PATH)
+		config.load(SETTINGS_FILE_PATH)
 
 func update_config_setting(key, value):
 	config.load(SETTINGS_FILE_PATH)
