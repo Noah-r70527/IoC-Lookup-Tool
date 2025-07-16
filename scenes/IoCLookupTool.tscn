@@ -1,0 +1,125 @@
+[gd_scene load_steps=8 format=3 uid="uid://dy77c8ent20lg"]
+
+[ext_resource type="Theme" uid="uid://cvjkotbfb80tq" path="res://assets/UIMainTheme.tres" id="1_5qg7n"]
+[ext_resource type="Script" uid="uid://ddqcffego8o3y" path="res://scripts/ioc_lookup_tool.gd" id="1_erkcc"]
+[ext_resource type="StyleBox" uid="uid://c8ds5ynwkwint" path="res://assets/SettingsStyleBox.tres" id="3_erkcc"]
+[ext_resource type="PackedScene" uid="uid://dk6k86ro0etqm" path="res://scenes/ToolSelector.tscn" id="3_ra6i8"]
+[ext_resource type="StyleBox" uid="uid://cl7kuthx7ny8f" path="res://assets/DisplayStyleBox.tres" id="4_ra6i8"]
+[ext_resource type="PackedScene" uid="uid://cli2h0e3cso4o" path="res://scenes/tools/IPLookupTool.tscn" id="5_p6akj"]
+[ext_resource type="Script" uid="uid://cuv8gjnur7u5r" path="res://scripts/requestHandler.gd" id="7_ra6i8"]
+
+[node name="IoCLookupTool" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_erkcc")
+
+[node name="MainContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_5qg7n")
+
+[node name="MainSplitter" type="HBoxContainer" parent="MainContainer"]
+layout_mode = 2
+
+[node name="LeftVbox" type="VBoxContainer" parent="MainContainer/MainSplitter"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.35
+
+[node name="ToolSelection" type="PanelContainer" parent="MainContainer/MainSplitter/LeftVbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("3_erkcc")
+
+[node name="ToolScroller" type="ScrollContainer" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection"]
+layout_mode = 2
+
+[node name="ToolVbox" type="VBoxContainer" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="IP Lookup Tool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
+layout_mode = 2
+tool_path = "res://scenes/tools/IPLookupTool.tscn"
+
+[node name="Hash Lookup Tool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
+visible = false
+layout_mode = 2
+tool_name = "Hash Lookup Tool"
+tool_path = "res://scenes/tools/HashLookupTool.tscn"
+
+[node name="URL Lookup Tool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
+layout_mode = 2
+tool_name = "URL Lookup Tool"
+tool_path = "res://scenes/tools/UrlLookupTool.tscn"
+
+[node name="SettingsBox" type="PanelContainer" parent="MainContainer/MainSplitter/LeftVbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("3_erkcc")
+
+[node name="SettingsVbox" type="VBoxContainer" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="CurrentToolLabel" type="Label" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Current Tool:
+IP Lookup Tool"
+horizontal_alignment = 1
+
+[node name="SettingsButton" type="Button" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Settings"
+
+[node name="Quit Button" type="Button" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit Application"
+
+[node name="RightVbox" type="VBoxContainer" parent="MainContainer/MainSplitter"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DisplayContainer" type="PanelContainer" parent="MainContainer/MainSplitter/RightVbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("4_ra6i8")
+
+[node name="OutputDisplay" type="RichTextLabel" parent="MainContainer/MainSplitter/RightVbox/DisplayContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Welcome to the [color=green]IoC Lookup Tool[/color]!"
+
+[node name="ToolBox" type="PanelContainer" parent="MainContainer/MainSplitter/RightVbox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("4_ra6i8")
+
+[node name="IpLookupTool" parent="MainContainer/MainSplitter/RightVbox/ToolBox" instance=ExtResource("5_p6akj")]
+layout_mode = 2
+
+[node name="HTTPRequestHandler" type="HTTPRequest" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_ra6i8")

@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=3 uid="uid://cs1u14s5aljqd"]
+
+[ext_resource type="Script" uid="uid://o3atsqfoq3nu" path="res://scripts/hash_lookup_tool.gd" id="1_8d1pq"]
+[ext_resource type="Theme" uid="uid://cvjkotbfb80tq" path="res://assets/UIMainTheme.tres" id="1_qcqad"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jehqg"]
+border_width_left = 100
+border_width_top = 100
+border_width_right = 100
+border_width_bottom = 100
+border_blend = true
+
+[sub_resource type="Theme" id="Theme_8d1pq"]
+HBoxContainer/constants/separation = 5
+VBoxContainer/styles/Style = SubResource("StyleBoxFlat_jehqg")
+
+[node name="HashLookupTool" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8d1pq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.8
+
+[node name="SingleLookupPanel" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_8d1pq")
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="SingleHashLookupBox" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="SingleHashText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/SingleHashLookupBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "8.8.8.8"
+
+[node name="SingleHashButton" type="Button" parent="HBoxContainer/SingleLookupPanel/SingleHashLookupBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_qcqad")
+text = "Execute Single Hash
+Lookup"
+
+[node name="MultiHashPanel" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/MultiHashPanel"]
+layout_mode = 2
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+text = "Multi Hash Lookup List Here:"
+horizontal_alignment = 1
+
+[node name="MultiHashText" type="TextEdit" parent="HBoxContainer/MultiHashPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MultiHashButton" type="Button" parent="HBoxContainer/MultiHashPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("1_qcqad")
+text = "Execute"
