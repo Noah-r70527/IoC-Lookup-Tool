@@ -14,7 +14,7 @@ func parse_ip_lookup(data_in: Dictionary):
 		
 	return resulting_string
 	
-
+	
 func parse_multi_ip_lookup(data_in: Dictionary):
 	if data_in.get("Error"):
 		return "Error: %s" % data_in.get("Error")
@@ -27,7 +27,8 @@ func parse_multi_ip_lookup(data_in: Dictionary):
 			resulting_string += "	[color=gray]%s[/color]: [color=white]%s[/color]\n" % [key, results[key]]
 		
 	return resulting_string
-
+	
+	
 func parse_network_lookup(data_in: Dictionary):
 	
 	if data_in.get("Error"):
@@ -41,8 +42,8 @@ func parse_network_lookup(data_in: Dictionary):
 			resulting_string += "[color=gray]%s[/color]: [color=white]%s[/color]\n" % [key, results[key]]
 		
 	return resulting_string
-		
-		
+	
+	
 func parse_url_lookup(data_in: Dictionary):
 	
 	if data_in.get("Error"):
@@ -64,7 +65,7 @@ func parse_url_lookup(data_in: Dictionary):
 	for key in parsed_results:
 		resulting_string += "[color=gray]%s[/color]: [color=white]%s[/color]\n" % [key, parsed_results[key]]
 		
-	return resulting_string
+	return [resulting_string, parsed_results]
 	
 	
 func parse_multi_url_lookup(data_in: Dictionary):
@@ -88,7 +89,7 @@ func parse_multi_url_lookup(data_in: Dictionary):
 	for key in parsed_results:
 		resulting_string += "	[color=gray]%s[/color]: [color=white]%s[/color]\n" % [key, parsed_results[key]]
 		
-	return resulting_string
+	return [resulting_string, parsed_results]
 	
 	
 func parse_ipscore(data_in: Dictionary):
@@ -181,7 +182,11 @@ func is_valid_domain(domain: String) -> bool:
 	var domain_regex = RegEx.new()
 	domain_regex.compile(r"^(?!-)(?:[a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,}$")
 	return domain_regex.search(domain) != null
-
-
-func handle_write_ip_csv():
-	pass
+	
+	
+func parse_hash_lookup(data_in: Dictionary):
+	if data_in.get("Error"):
+		return "Error: %s" % data_in.get("Error")
+		
+	
+		

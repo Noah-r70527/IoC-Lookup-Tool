@@ -18,8 +18,7 @@ func sync_api_keys():
 		ab_ip_key = ConfigHandler.get_config_value("ABUSE_IP_API_KEY")
 		vt_key = ConfigHandler.get_config_value("VT_API_KEY")
 		return "Success"
-		
-
+	
 func make_abuseipdb_ip_request(ip_address: String) -> Dictionary:
 	current_request_type = RequestType.ABUSEIPDB
 	
@@ -39,7 +38,7 @@ func make_abuseipdb_ip_request(ip_address: String) -> Dictionary:
 	var body: PackedByteArray = result[3]
 	var parse_result = JSON.parse_string(body.get_string_from_utf8())
 	return parse_result
-
+	
 func make_abuseipdb_network_request(ip_address: String) -> Dictionary:
 	current_request_type = RequestType.ABUSEIPDB
 	var baseUrl = "https://api.abuseipdb.com/api/v2/check-block"
@@ -57,7 +56,7 @@ func make_abuseipdb_network_request(ip_address: String) -> Dictionary:
 	var body: PackedByteArray = result[3]
 	var parse_result = JSON.parse_string(body.get_string_from_utf8())
 	return parse_result
-
+	
 func make_abuseipdb_report_request(ip_address: String) -> Dictionary:
 	current_request_type = RequestType.ABUSEIPDB
 	
@@ -79,7 +78,7 @@ func make_abuseipdb_report_request(ip_address: String) -> Dictionary:
 	var body: PackedByteArray = result[3]
 	var parse_result = JSON.parse_string(body.get_string_from_utf8())
 	return parse_result
-
+	
 func make_virustotal_request(input_value: String, lookup_type) -> Dictionary:
 	var test_domain = Helpers.extract_domain(input_value)
 	
@@ -104,9 +103,9 @@ func make_virustotal_request(input_value: String, lookup_type) -> Dictionary:
 
 	var parse_result = JSON.parse_string(body.get_string_from_utf8())
 	return parse_result
-
-
+	
 func make_ipscore_url_request(input_value) -> Dictionary:
+	
 	var test_domain = Helpers.extract_domain(input_value)
 	var parsed_domain = input_value.uri_encode()
 	if not Helpers.is_valid_domain(test_domain):
@@ -120,7 +119,28 @@ func make_ipscore_url_request(input_value) -> Dictionary:
 
 	var parse_result = JSON.parse_string(body.get_string_from_utf8())
 	return parse_result
+	
+func make_hash_lookup_request(input_hash) -> Dictionary:
+	var base_url = "https://yaraify-api.abuse.ch/api/v1/"
+	var headers = [
+		"Content-Type: application/json",
+		"Accept: application/json"
+	]
 
+	var payload = {
+		"query": "lookup_hash",
+		"search_term": input_hash
+	}
+
+	var json_payload = JSON.stringify(payload)
+	requestHandler.request(base_url, headers, HTTPClient.METHOD_POST, json_payload)
+
+	var result = await requestHandler.request_completed
+	var body: PackedByteArray = result[3]
+	print(body)
+	var parse_result = JSON.parse_string(body.get_string_from_utf8())
+	return parse_result
+	
 func update_abuse_count(count_in):
 	%ABLookupCount.text = "Remaining Abuse IP DB Lookups:\n%s" % count_in
 	

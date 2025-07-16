@@ -10,16 +10,16 @@ config_version=5
 
 [application]
 
-config/name="IPLookupToolGD"
+config/name="IoC Lookup Tool"
 run/main_scene="uid://dy77c8ent20lg"
 config/features=PackedStringArray("4.4", "Mobile")
-config/icon="res://icon.svg"
+config/icon="res://Icon.ico"
 
 [autoload]
 
 Helpers="*res://scripts/helpers.gd"
 ConfigHandler="*res://scripts/config_handler.gd"
-CsvHelper="*res://scenes/csv_helper.gd"
+CsvHelper="*res://scripts/csv_helper.gd"
 
 [rendering]
 

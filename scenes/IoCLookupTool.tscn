@@ -56,8 +56,13 @@ alignment = 1
 layout_mode = 2
 tool_path = "res://scenes/tools/IPLookupTool.tscn"
 
-[node name="URL Lookup Tool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
+[node name="Hash Lookup Tool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
 visible = false
+layout_mode = 2
+tool_name = "Hash Lookup Tool"
+tool_path = "res://scenes/tools/HashLookupTool.tscn"
+
+[node name="URL Lookup Tool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
 layout_mode = 2
 tool_name = "URL Lookup Tool"
 tool_path = "res://scenes/tools/UrlLookupTool.tscn"

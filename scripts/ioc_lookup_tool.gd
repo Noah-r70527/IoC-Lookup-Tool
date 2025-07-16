@@ -25,14 +25,15 @@ func _ready():
 func handle_swap_tool(tool_scene_path):
 	var scene_to_tool_name = {
 		"res://scenes/tools/IPLookupTool.tscn": "IP Lookup Tool",
-		"res://scenes/tools/UrlLookupTool.tscn": "URL Lookup Tool"
+		"res://scenes/tools/UrlLookupTool.tscn": "URL Lookup Tool",
+		"res://scenes/settings/Settings.tscn": "Settings",
+		"res://scenes/tools/HashLookupTool.tscn": "Hash Lookup Tool"
 	}
 	for node in tool_box.get_children():
-		print("Clearing Node: %s" % node)
 		tool_box.remove_child(node)
 	%CurrentToolLabel.text = "Current Tool:\n%s" % scene_to_tool_name.get(tool_scene_path)
 	%OutputDisplay.clear()
-	%OutputDisplay.append_text("[color=green]Swapping tool to: [/color]%s" % tool_scene_path)
+	%OutputDisplay.append_text("[color=green]Swapping tool to: [/color]%s" % scene_to_tool_name.get(tool_scene_path))
 	$%ToolBox.add_child(load(tool_scene_path).instantiate())
 	
 	
