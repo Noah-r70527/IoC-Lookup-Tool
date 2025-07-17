@@ -21,6 +21,10 @@ Helpers="*res://scripts/helpers.gd"
 ConfigHandler="*res://scripts/config_handler.gd"
 CsvHelper="*res://scripts/csv_helper.gd"
 
+[debug]
+
+file_logging/enable_file_logging=true
+
 [rendering]
 
 renderer/rendering_method="mobile"

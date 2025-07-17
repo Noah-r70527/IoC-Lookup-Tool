@@ -36,8 +36,22 @@ func do_single_IP_Lookup():
 		var folder_string = "%s_%s_%s" % [date_time.year, date_time.month, date_time.day]
 		if not dir_access.dir_exists(folder_string):
 			dir_access.make_dir(folder_string)
+		var temp = result.get("data")
+		var setup_data = {
+			"Date": folder_string,
+			"IP": temp.get("ipAddress"),
+			"Entered_By": ConfigHandler.get_config_value("NAME") if ConfigHandler.get_config_value("NAME") else "Blank",
+			"Detecting_System": "Blank",
+			"Abuse_Score": temp.get("abuseConfidenceScore
+			"),
+			"Total_Reports": temp.get("totalReports"),
+			"ISP": temp.get("isp"),
+			"Country_Code": temp.get("countryCode"),
+			"Hostnames": temp.get("hostnames"),
+			"Block/Unblock": "Block"
+		}
 		CsvHelper.write_csv_dict("%s/%s/single_lookup.csv" % [dir_access.get_current_dir(), folder_string],   #file name
-		[result.get("data")], # data to write
+		[setup_data], # data to write
 		",", # delimiter
 		true # append to existing file?
 		)
@@ -56,22 +70,35 @@ func do_multi_lookup():
 	var output_list = []
 	var ip_list = %MultiIPText.text.split("\n")
 	output.append_text("Starting multi-IP lookup on %s IPs...\n\n" % len(ip_list))
+	var date_time = Time.get_datetime_dict_from_system(false)
+	var folder_string = "%s_%s_%s" % [date_time.year, date_time.month, date_time.day]
 	for ip in ip_list:
 		output.append_text("[color=green]Doing IP lookup on:[/color] [color=white]%s[/color]\n" % ip)
 		var result: Dictionary = await requester.make_abuseipdb_ip_request(ip)
 		var output_text = Helpers.parse_multi_ip_lookup(result)
 		output.append_text(output_text)
 		if result.get("data"):
-			output_list.append(result.get("data"))
+			var temp = result.get("data")
+			var setup_data = {
+				"Date": folder_string,
+				"IP": temp.get("ipAddress"),
+				"Entered_By": ConfigHandler.get_config_value("NAME") if ConfigHandler.get_config_value("NAME") else "Blank",
+				"Detecting_System": "Blank",
+				"Abuse_Score": temp.get("abuseConfidenceScore"),
+				"Total_Reports": temp.get("totalReports"),
+				"ISP": temp.get("isp"),
+				"Country_Code": temp.get("countryCode"),
+				"Hostnames": temp.get("hostnames"),
+				"Block/Unblock": "Block"
+			}
+			output_list.append(setup_data)
 		await get_tree().create_timer(.5).timeout
 	
 	if ConfigHandler.get_config_value("LOG_IP_TO_CSV") == "true":
 		var dir_access = DirAccess.open("%s/IPLookups" % OS.get_executable_path().get_base_dir())
-		var date_time = Time.get_datetime_dict_from_system(false)
-		var folder_string = "%s_%s_%s" % [date_time.year, date_time.month, date_time.day]
 		if not dir_access.dir_exists(folder_string):
 			dir_access.make_dir(folder_string)
-			
+
 		CsvHelper.write_csv_dict("%s/%s/multi_lookup.csv" % [dir_access.get_current_dir(), folder_string],   #file name
 		output_list, # data to write
 		",", # delimiter

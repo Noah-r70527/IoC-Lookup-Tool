@@ -37,7 +37,7 @@ size_flags_stretch_ratio = 0.8
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_ukskx")
-theme_override_constants/separation = 60
+theme_override_constants/separation = 0
 alignment = 1
 
 [node name="SingleIpLookupBox" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]

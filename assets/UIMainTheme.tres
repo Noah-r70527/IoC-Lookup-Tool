@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://cvjkotbfb80tq"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://cvjkotbfb80tq"]
 
 [ext_resource type="StyleBox" uid="uid://do1dbk82rqeg0" path="res://assets/StyleBoxFlatPreset.tres" id="1_u378m"]
 
@@ -22,6 +22,17 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hx3v0"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hx3v0"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.351563, 0.351563, 0.351563, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [resource]
 Button/styles/hover = SubResource("StyleBoxFlat_u378m")
 Button/styles/normal = SubResource("StyleBoxFlat_no4ov")
@@ -29,3 +40,4 @@ CheckButton/styles/hover = SubResource("StyleBoxEmpty_u378m")
 CheckButton/styles/hover_pressed = SubResource("StyleBoxEmpty_no4ov")
 CheckButton/styles/normal = SubResource("StyleBoxEmpty_hx3v0")
 PanelContainer/styles/panel = ExtResource("1_u378m")
+TextEdit/styles/normal = SubResource("StyleBoxFlat_hx3v0")

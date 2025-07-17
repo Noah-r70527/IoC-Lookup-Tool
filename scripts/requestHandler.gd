@@ -9,7 +9,6 @@ var ab_remaining = 0
 var vt_remaining = 0
 var ab_ip_key = ConfigHandler.get_config_value("ABUSE_IP_API_KEY")
 var vt_key = ConfigHandler.get_config_value("VT_API_KEY")
-var ipscore_key = ConfigHandler.get_config_value("IPSCORE_API_KEY")
 
 func _ready():
 	pass
@@ -33,6 +32,10 @@ func make_abuseipdb_ip_request(ip_address: String) -> Dictionary:
 	var url = "%s?ipAddress=%s&maxAgeInDays=90" % [baseUrl, ip_address]
 	requestHandler.request(url, headers)
 	var result = await requestHandler.request_completed
+	
+	if check_response_code(result[1]) == "Rate-Limited":
+		return {"error": "Rate-Limited"}
+	
 	var remaining = result[2][7].split(": ")[1]
 	ab_remaining = remaining
 	var body: PackedByteArray = result[3]
@@ -50,6 +53,10 @@ func make_abuseipdb_network_request(ip_address: String) -> Dictionary:
 	requestHandler.request(url, headers)
 
 	var result = await requestHandler.request_completed
+	
+	if check_response_code(result[1]) == "Rate-Limited":
+		return {"error": "Rate-Limited"}
+		
 	var remaining = result[2][7].split(": ")[1]
 	ab_remaining = remaining
 	update_abuse_count(ab_remaining)
@@ -70,8 +77,11 @@ func make_abuseipdb_report_request(ip_address: String) -> Dictionary:
 	]
 	var url = "%s?ipAddress=%s&maxAgeInDays=90" % [baseUrl, ip_address]
 	requestHandler.request(url, headers)
-
 	var result = await requestHandler.request_completed
+	
+	if check_response_code(result[1]) == "Rate-Limited":
+		return {"error": "Rate-Limited"}
+		
 	var remaining = result[2][7].split(": ")[1]
 	ab_remaining = remaining
 	update_abuse_count(ab_remaining)
@@ -97,24 +107,11 @@ func make_virustotal_request(input_value: String, lookup_type) -> Dictionary:
 		"x-apikey: %s" % vt_key
 	]
 	requestHandler.request(baseUrl, headers)
-
 	var result = await requestHandler.request_completed
-	var body: PackedByteArray = result[3]
-
-	var parse_result = JSON.parse_string(body.get_string_from_utf8())
-	return parse_result
 	
-func make_ipscore_url_request(input_value) -> Dictionary:
-	
-	var test_domain = Helpers.extract_domain(input_value)
-	var parsed_domain = input_value.uri_encode()
-	if not Helpers.is_valid_domain(test_domain):
-		return {"Error": "Invalid input. Please enter a valid domain"}
+	if check_response_code(result[1]) == "Rate-Limited":
+		return {"error": "Rate-Limited"}
 		
-	var baseUrl = "https://www.ipqualityscore.com/api/json/url/%s/%s?key=%s" % [ipscore_key, parsed_domain, ipscore_key]
-	requestHandler.request(baseUrl)
-
-	var result = await requestHandler.request_completed
 	var body: PackedByteArray = result[3]
 
 	var parse_result = JSON.parse_string(body.get_string_from_utf8())
@@ -147,3 +144,16 @@ func update_abuse_count(count_in):
 func update_vt_count(count_in):
 	%VTLookupCountBox.text = "Remaining Virus Total Lookups:\n%s" % count_in
 	
+func check_response_code(response_code_in):
+	match response_code_in:
+		200:
+			return "Success"
+		429:
+			return "Rate-Limited"
+		404:
+			return "Not Found"
+		_:
+			return "Error"
+			
+		
+		
