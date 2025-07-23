@@ -37,6 +37,7 @@ func handle_swap_tool(tool_scene_path):
 	for node in tool_box.get_children():
 		tool_box.remove_child(node)
 	%CurrentToolLabel.text = "Current Tool:\n%s" % scene_to_tool_name.get(tool_scene_path)
+	current_tool = scene_to_tool_name.get(tool_scene_path)
 	%OutputDisplay.clear()
 	%OutputDisplay.append_text("[color=green]Swapping tool to: [/color]%s" % scene_to_tool_name.get(tool_scene_path))
 	$%ToolBox.add_child(load(tool_scene_path).instantiate())

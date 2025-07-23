@@ -8,6 +8,8 @@ extends Control
 @onready var network_text = %NetworkLookupText
 @onready var multi_text = %MultiIPText
 @onready var report_text = %ReportLookupText
+@onready var option_button = %ToolOption
+@onready var selected_option: String = "Sentinel"
 @onready var requester = get_parent().get_node("%HTTPRequestHandler")
 @onready var output = get_parent().get_node("%OutputDisplay")
 
@@ -17,10 +19,14 @@ func _ready():
 	network_button.pressed.connect(do_network_lookup)
 	report_button.pressed.connect(do_report_lookup)
 	multi_button.pressed.connect(do_multi_lookup)
+	option_button.item_selected.connect(swap_selected_tool)
 	if !ConfigHandler.get_config_value("ABUSE_IP_API_KEY"):
 		for button in [single_button, multi_button, network_button, report_button]:
 			button.disabled = true
 
+
+func swap_selected_tool(index_in):
+	selected_option = option_button.get_item_text(index_in)
 
 func do_single_IP_Lookup():
 	output.clear()
@@ -41,7 +47,7 @@ func do_single_IP_Lookup():
 			"Date": folder_string,
 			"IP": temp.get("ipAddress"),
 			"Entered_By": ConfigHandler.get_config_value("NAME") if ConfigHandler.get_config_value("NAME") else "Blank",
-			"Detecting_System": "Blank",
+			"Detecting_System": selected_option,
 			"Abuse_Score": temp.get("abuseConfidenceScore
 			"),
 			"Total_Reports": temp.get("totalReports"),
@@ -83,7 +89,7 @@ func do_multi_lookup():
 				"Date": folder_string,
 				"IP": temp.get("ipAddress"),
 				"Entered_By": ConfigHandler.get_config_value("NAME") if ConfigHandler.get_config_value("NAME") else "Blank",
-				"Detecting_System": "Blank",
+				"Detecting_System": selected_option,
 				"Abuse_Score": temp.get("abuseConfidenceScore"),
 				"Total_Reports": temp.get("totalReports"),
 				"ISP": temp.get("isp"),

@@ -4,3 +4,6 @@
 Icon.ico
 *.cfg
 export_presets.cfg
+/Output
+/Old
+TODO.txt
