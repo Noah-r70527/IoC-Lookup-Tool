@@ -28,7 +28,8 @@ func handle_swap_tool(tool_scene_path):
 		"res://scenes/tools/IPLookupTool.tscn": "IP Lookup Tool",
 		"res://scenes/tools/UrlLookupTool.tscn": "URL Lookup Tool",
 		"res://scenes/settings/Settings.tscn": "Settings",
-		"res://scenes/tools/HashLookupTool.tscn": "Hash Lookup Tool"
+		"res://scenes/tools/HashLookupTool.tscn": "Hash Lookup Tool",
+		"res://scenes/tools/DefangTool.tscn": "Defang Tool"
 	}
 	
 	if scene_to_tool_name.get(tool_scene_path) == current_tool:

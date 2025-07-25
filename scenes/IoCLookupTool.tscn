@@ -67,6 +67,11 @@ layout_mode = 2
 tool_name = "URL Lookup Tool"
 tool_path = "res://scenes/tools/UrlLookupTool.tscn"
 
+[node name="DefangTool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
+layout_mode = 2
+tool_name = "Defang Tool"
+tool_path = "res://scenes/tools/DefangTool.tscn"
+
 [node name="SettingsBox" type="PanelContainer" parent="MainContainer/MainSplitter/LeftVbox"]
 layout_mode = 2
 size_flags_horizontal = 3

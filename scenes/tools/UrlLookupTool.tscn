@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d2qgm0m7jrpcb" path="res://scripts/url_lookup_tool.gd" id="1_kfh15"]
 [ext_resource type="Theme" uid="uid://cvjkotbfb80tq" path="res://assets/UIMainTheme.tres" id="2_kfh15"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jehqg"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0oth"]
 border_width_left = 100
 border_width_top = 100
 border_width_right = 100
@@ -12,7 +12,7 @@ border_blend = true
 
 [sub_resource type="Theme" id="Theme_ukskx"]
 HBoxContainer/constants/separation = 5
-VBoxContainer/styles/Style = SubResource("StyleBoxFlat_jehqg")
+VBoxContainer/styles/Style = SubResource("StyleBoxFlat_g0oth")
 
 [node name="IpLookupTool" type="Control"]
 layout_mode = 3
