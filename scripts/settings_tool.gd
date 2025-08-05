@@ -4,21 +4,26 @@ extends Control
 @onready var vt_key = ConfigHandler.get_config_value("VT_API_KEY")
 @onready var ip_log = ConfigHandler.get_config_value("LOG_IP_TO_CSV")
 @onready var url_log = ConfigHandler.get_config_value("LOG_URL_TO_CSV")
-@onready var ipscore_key = ConfigHandler.get_config_value("IPSCORE_API_KEY")
+@onready var config_name = ConfigHandler.get_config_value("NAME")
 
 signal updated_config(setting_changed)
 
 func _ready():
 	%AbuseIPDBAPIKey.text = ab_ip_key
 	%VTText.text = vt_key
-	%IPScoreText.text = ipscore_key
+	%NameText.text = config_name if config_name else ""
 	%IPCsvCheck.button_pressed = true if ip_log == "true" else false
 	%URLCsvCheck.button_pressed = true if url_log == "true" else false
 	%IPCsvCheck.button_up.connect(toggle_ip_log)
 	%URLCsvCheck.button_up.connect(toggle_url_log)
 	%AbuseIPDBButton.pressed.connect(update_api_key.bind("ab"))
 	%VTButton.pressed.connect(update_api_key.bind("vt"))
-	%IPScoreButton.pressed.connect(update_api_key.bind("is"))
+	%"Name Button".pressed.connect(update_name)
+	
+
+func update_name():
+	ConfigHandler.update_config_setting("NAME", %NameText.text)
+	emit_signal("updated_config", "NAME")
 	
 func update_api_key(system):
 	var system_string = ""
@@ -29,9 +34,7 @@ func update_api_key(system):
 	elif system == "vt":
 		system_string = "VT_API_KEY"
 		key = %VTText.text
-	elif system == "is":
-		system_string = "IPSCORE_API_KEY"
-		key = %IPScoreText.text
+
 
 	print(system_string, key)
 	ConfigHandler.update_config_setting(system_string, key)

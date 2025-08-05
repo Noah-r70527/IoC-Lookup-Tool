@@ -9,7 +9,6 @@ func _ready():
 		config.set_value("Config", "VT_API_KEY", "")
 		config.set_value("Config", "LOG_IP_TO_CSV", "true")
 		config.set_value("Config", "LOG_URL_TO_CSV", "true")
-		config.set_value("Config", "IPSCORE_API_KEY", "")
 		config.save(SETTINGS_FILE_PATH)
 		
 	else:

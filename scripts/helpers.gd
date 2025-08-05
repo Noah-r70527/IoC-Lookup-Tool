@@ -1,7 +1,5 @@
 extends Node
 
-# { "data": { "ipAddress": "1.1.1.1", "isPublic": true, "ipVersion": 4.0, "isWhitelisted": true, "abuseConfidenceScore": 0.0, "countryCode": "AU", "usageType": "Content Delivery Network", "isp": "APNIC and Cloudflare DNS Resolver project", "domain": "cloudflare.com", "hostnames": ["one.one.one.one"], "isTor": false, "totalReports": 130.0, "numDistinctUsers": 28.0, "lastReportedAt": "2025-07-01T17:31:31+00:00" } }
-
 func parse_ip_lookup(data_in: Dictionary):
 	if data_in.get("Error"):
 		return "Error: %s" % data_in.get("Error")
@@ -91,45 +89,6 @@ func parse_multi_url_lookup(data_in: Dictionary):
 		
 	return [resulting_string, parsed_results]
 	
-	
-func parse_ipscore(data_in: Dictionary):
-	if data_in.get("Error"):
-		return "Error: %s" % data_in.get("Error")
-		
-	var parsed_results = {
-		"Domain": data_in.get("domain"),
-		"Reported for spam": data_in.get("spamming"),
-		"Reported for malware": data_in.get("malware"),
-		"Reported for phishing": data_in.get("phishing"),
-		"Risk Score": data_in.get("risk_score"),
-		"Country Code": data_in.get("country_code")
-	}
-	
-	var resulting_string = ""
-	for key in parsed_results:
-		resulting_string += "[color=gray]%s[/color]: [color=white]%s[/color]\n" % [key, parsed_results[key]]
-	
-	return resulting_string
-	
-	
-func parse_multi_ipscore(data_in: Dictionary):
-	if data_in.get("Error"):
-		return "Error: %s" % data_in.get("Error")
-		
-	var parsed_results = {
-		"Domain": data_in.get("domain"),
-		"Reported for spam": data_in.get("spamming"),
-		"Reported for malware": data_in.get("malware"),
-		"Reported for phishing": data_in.get("phishing"),
-		"Risk Score": data_in.get("risk_score"),
-		"Country Code": data_in.get("country_code")
-	}
-	
-	var resulting_string = ""
-	for key in parsed_results:
-		resulting_string += "	[color=gray]%s[/color]: [color=white]%s[/color]\n" % [key, parsed_results[key]]
-	
-	return resulting_string
 	
 func sum_array(array):
 	var sum = 0

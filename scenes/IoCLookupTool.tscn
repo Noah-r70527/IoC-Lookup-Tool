@@ -67,6 +67,11 @@ layout_mode = 2
 tool_name = "URL Lookup Tool"
 tool_path = "res://scenes/tools/UrlLookupTool.tscn"
 
+[node name="DefangTool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
+layout_mode = 2
+tool_name = "Defang Tool"
+tool_path = "res://scenes/tools/DefangTool.tscn"
+
 [node name="SettingsBox" type="PanelContainer" parent="MainContainer/MainSplitter/LeftVbox"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -86,11 +91,13 @@ horizontal_alignment = 1
 
 [node name="SettingsButton" type="Button" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Settings"
 
 [node name="Quit Button" type="Button" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Quit Application"
 

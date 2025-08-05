@@ -40,10 +40,11 @@ theme_override_constants/margin_right = 20
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_ukskx")
-theme_override_constants/separation = 20
+theme_override_constants/separation = 10
 alignment = 1
 
 [node name="AbuseIPDBBox" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 4
 
@@ -64,6 +65,7 @@ API Key
 "
 
 [node name="VTBox" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 4
 
@@ -82,26 +84,27 @@ theme = ExtResource("2_wjxgb")
 text = "Update Virus Total
 API Key"
 
-[node name="IPScore" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+[node name="NameBox" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="IPScoreText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/IPScore"]
+[node name="NameText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/NameBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
-placeholder_text = "**********************************"
+placeholder_text = "Noah Robertson"
 
-[node name="IPScoreButton" type="Button" parent="HBoxContainer/SingleLookupPanel/IPScore"]
+[node name="Name Button" type="Button" parent="HBoxContainer/SingleLookupPanel/NameBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_wjxgb")
-text = "Update IP Score
-API Key"
+text = "Update Name"
 
 [node name="LogIPToCSV" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 
@@ -117,6 +120,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 
 [node name="LogURLToCSV" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 

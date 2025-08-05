@@ -17,3 +17,6 @@ mono_crash.*.json
 /Old
 /Output
 export_presets.cfg
+scripts/test_script.gd
+scripts/test_script.gd.uid
+scenes/mainScene.tscn1579169021.tmp
