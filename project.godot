@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="IoC Lookup Tool"
+config/version="1.1"
 run/main_scene="uid://dy77c8ent20lg"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="uid://dk8nmpmuld2ja"
@@ -24,6 +25,14 @@ CsvHelper="*res://scripts/csv_helper.gd"
 [debug]
 
 file_logging/enable_file_logging=true
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+window/handheld/orientation=6
 
 [rendering]
 

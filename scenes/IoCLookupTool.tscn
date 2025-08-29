@@ -30,11 +30,13 @@ theme = ExtResource("1_5qg7n")
 
 [node name="MainSplitter" type="HBoxContainer" parent="MainContainer"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="LeftVbox" type="VBoxContainer" parent="MainContainer/MainSplitter"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.35
+theme_override_constants/separation = 0
 
 [node name="ToolSelection" type="PanelContainer" parent="MainContainer/MainSplitter/LeftVbox"]
 layout_mode = 2
@@ -104,6 +106,7 @@ text = "Quit Application"
 [node name="RightVbox" type="VBoxContainer" parent="MainContainer/MainSplitter"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 0
 
 [node name="DisplayContainer" type="PanelContainer" parent="MainContainer/MainSplitter/RightVbox"]
 layout_mode = 2

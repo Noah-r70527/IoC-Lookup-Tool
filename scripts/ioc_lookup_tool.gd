@@ -4,7 +4,9 @@ extends Control
 @onready var output_display = %OutputDisplay
 var current_tool: String = "IP Lookup Tool"
 
+
 func _ready():
+
 	var dir_access = DirAccess.open(OS.get_executable_path().get_base_dir())
 	if not dir_access.dir_exists("IPLookups"):
 		dir_access.make_dir("IPLookups")
@@ -50,6 +52,16 @@ func handle_updated_config(config_name):
 		%OutputDisplay.clear()
 		%OutputDisplay.append_text("[color=green]Successfully updated name[/color]")
 		return
+		
+	if config_name == "TOOLADD":
+		%OutputDisplay.clear()
+		%OutputDisplay.append_text("[color=green]Successfully added tool[/color]")
+		return
+
+	if config_name == "TOOLREMOVE":
+		%OutputDisplay.clear()
+		%OutputDisplay.append_text("[color=green]Successfully removed tool[/color]")
+		return
 
 		
 	var result = %HTTPRequestHandler.sync_api_keys()
@@ -61,10 +73,17 @@ func handle_updated_config(config_name):
 		%OutputDisplay.append_text("[color=red]Failed to sync keys after updating config[/color]")
 	
 
+func handle_output_text(text_in):
+	%OutputDisplay.clear()
+	%OutputDisplay.append_text("[color=green]Current tools in config: [/color]\n\n")
+	%OutputDisplay.append_text(text_in)
+
+
 func on_settings_clicked():
 	handle_swap_tool("res://scenes/settings/Settings.tscn")
 	await get_tree().create_timer(.1).timeout
 	%ToolBox.get_child(0).updated_config.connect(handle_updated_config)
+	%ToolBox.get_child(0).output_text.connect(handle_output_text)
 	
 
 func quit_program():

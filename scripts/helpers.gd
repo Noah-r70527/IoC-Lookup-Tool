@@ -1,7 +1,7 @@
 extends Node
 
 func parse_ip_lookup(data_in: Dictionary):
-	if data_in.get("Error"):
+	if data_in.get("Error") or not data_in.get("data"):
 		return "Error: %s" % data_in.get("Error")
 	var keys_to_print = ['ipAddress', 'countryCode', 'abuseConfidenceScore', 'isp', 'domain', 'hostnames', 'totalReports']
 	var results: Dictionary = data_in.get("data")
@@ -146,6 +146,4 @@ func is_valid_domain(domain: String) -> bool:
 func parse_hash_lookup(data_in: Dictionary):
 	if data_in.get("Error"):
 		return "Error: %s" % data_in.get("Error")
-		
-	
 		

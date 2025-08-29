@@ -7,6 +7,7 @@ extends Control
 @onready var config_name = ConfigHandler.get_config_value("NAME")
 
 signal updated_config(setting_changed)
+signal output_text(text)
 
 func _ready():
 	%AbuseIPDBAPIKey.text = ab_ip_key
@@ -19,8 +20,10 @@ func _ready():
 	%AbuseIPDBButton.pressed.connect(update_api_key.bind("ab"))
 	%VTButton.pressed.connect(update_api_key.bind("vt"))
 	%"Name Button".pressed.connect(update_name)
+	%"Add Tool".pressed.connect(add_tool)
+	%"Remove Tool".pressed.connect(remove_tool)
+	%"List Tools".pressed.connect(list_tools)
 	
-
 func update_name():
 	ConfigHandler.update_config_setting("NAME", %NameText.text)
 	emit_signal("updated_config", "NAME")
@@ -35,10 +38,7 @@ func update_api_key(system):
 		system_string = "VT_API_KEY"
 		key = %VTText.text
 
-
-	print(system_string, key)
 	ConfigHandler.update_config_setting(system_string, key)
-	print(ConfigHandler.get_config_value(system_string))
 	emit_signal("updated_config", system_string)
 	
 
@@ -51,5 +51,31 @@ func toggle_url_log():
 	var updated = "false" if !%URLCsvCheck.button_pressed else "true"
 	ConfigHandler.update_config_setting("LOG_URL_TO_CSV", updated)
 	print(ConfigHandler.get_config_value("LOG_URL_TO_CSV"))
-
+	
+	
+func add_tool():
+	var current_tools: PackedStringArray = ConfigHandler.get_config_value("TOOLS").split(",")
+	var tool_text: String = %ToolText.text
+	var unwanted_chars = ["!", "@", "#", "$", "%", ",", "."]
+	for letter in unwanted_chars:
+		tool_text.replace(letter, "")
+	current_tools.append(tool_text)
+	ConfigHandler.update_config_setting("TOOLS", ",".join(current_tools))
+	emit_signal("updated_config", "TOOLADD")
+	
+	
+func remove_tool():
+	var current_tools: PackedStringArray = ConfigHandler.get_config_value("TOOLS").split(",")
+	var tool_text: String = %ToolText.text
+	var unwanted_chars = ["!", "@", "#", "$", "%", ",", "."]
+	for letter in unwanted_chars:
+		tool_text.replace(letter, "")
+	if current_tools.find(tool_text) != -1:
+		current_tools.remove_at(current_tools.find(tool_text))
+	ConfigHandler.update_config_setting("TOOLS", ",".join(current_tools))
+	emit_signal("updated_config", "TOOLREMOVE")	
+	
+	
+func list_tools():
+	emit_signal("output_text", "\n".join(ConfigHandler.get_config_value("TOOLS").split(",")))
 	

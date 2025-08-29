@@ -103,6 +103,39 @@ size_flags_horizontal = 3
 theme = ExtResource("2_wjxgb")
 text = "Update Name"
 
+[node name="AddTool" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ToolText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/AddTool"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+placeholder_text = "Defender"
+
+[node name="Add Tool" type="Button" parent="HBoxContainer/SingleLookupPanel/AddTool"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wjxgb")
+text = "Add Tool"
+
+[node name="Remove Tool" type="Button" parent="HBoxContainer/SingleLookupPanel/AddTool"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wjxgb")
+text = "Remove Tool"
+
+[node name="List Tools" type="Button" parent="HBoxContainer/SingleLookupPanel/AddTool"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wjxgb")
+text = "List Tools in Config"
+
 [node name="LogIPToCSV" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2

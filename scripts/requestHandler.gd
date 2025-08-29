@@ -7,8 +7,8 @@ enum VTEndpoint { ip_address, domains}
 var current_request_type = null
 var ab_remaining = 0
 var vt_remaining = 0
-var ab_ip_key = ConfigHandler.get_config_value("ABUSE_IP_API_KEY")
-var vt_key = ConfigHandler.get_config_value("VT_API_KEY")
+var ab_ip_key = ConfigHandler.get_config_value("ABUSE_IP_API_KEY") if ConfigHandler.get_config_value("ABUSE_IP_API_KEY") else "None"
+var vt_key = ConfigHandler.get_config_value("VT_API_KEY") if ConfigHandler.get_config_value("VT_API_KEY") else "None"
 
 func _ready():
 	pass

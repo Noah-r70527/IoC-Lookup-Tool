@@ -15,7 +15,7 @@ func _ready():
 	multi_url_button.pressed.connect(do_multi_url_lookup)
 	dns_lookup_button.pressed.connect(do_dns_lookup)
 	
-	if !ConfigHandler.get_config_value("VT_API_KEY"):
+	if !ConfigHandler.get_config_value("VT_API_KEY") or ConfigHandler.get_config_value("VT_API_KEY") == "...":
 		for button in [multi_url_button, single_url_button, dns_lookup_button]:
 			button.disabled = true
 
