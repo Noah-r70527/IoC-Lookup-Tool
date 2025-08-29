@@ -1,0 +1,9 @@
+Email Reputation Checking: https://emailrep.io/key
+- Get email rep
+
+Safe Browsing URL check: https://developers.google.com/safe-browsing
+- Check URL against google safe browsing
+
+Qualys:
+- Disable single/multiple QIDs
+- Enable QID

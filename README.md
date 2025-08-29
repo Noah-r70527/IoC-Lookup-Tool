@@ -12,4 +12,3 @@ Features
 - INI-based configuration for storing API keys and tool settings
 
 - Built entirely in GDScript using Godot — no external dependencies required
-
