@@ -6,14 +6,14 @@ var current_tool: String = "IP Lookup Tool"
 
 
 func _ready():
-
+	
+	output_display.selection_enabled = true
 	var dir_access = DirAccess.open(OS.get_executable_path().get_base_dir())
 	if not dir_access.dir_exists("IPLookups"):
 		dir_access.make_dir("IPLookups")
 	if not dir_access.dir_exists("URLLookups"):
 		dir_access.make_dir("URLLookups")
 
-	
 	if not ConfigHandler.get_config_value("ABUSE_IP_API_KEY"):
 		output_display.append_text("\n\n[color=red]WARNING[/color]: Abuse IP DB API key is missing. You will be unable to perform IP lookups. Please click the settings button, open settings.ini, and add the API key.")
 
@@ -35,7 +35,7 @@ func handle_swap_tool(tool_scene_path):
 	}
 	
 	if scene_to_tool_name.get(tool_scene_path) == current_tool:
-		return
+		return null
 		
 	for node in tool_box.get_children():
 		tool_box.remove_child(node)
@@ -44,6 +44,7 @@ func handle_swap_tool(tool_scene_path):
 	%OutputDisplay.clear()
 	%OutputDisplay.append_text("[color=green]Swapping tool to: [/color]%s" % scene_to_tool_name.get(tool_scene_path))
 	$%ToolBox.add_child(load(tool_scene_path).instantiate())
+	return "Swapped"
 	
 	
 func handle_updated_config(config_name):
@@ -80,10 +81,11 @@ func handle_output_text(text_in):
 
 
 func on_settings_clicked():
-	handle_swap_tool("res://scenes/settings/Settings.tscn")
-	await get_tree().create_timer(.1).timeout
-	%ToolBox.get_child(0).updated_config.connect(handle_updated_config)
-	%ToolBox.get_child(0).output_text.connect(handle_output_text)
+	var result = handle_swap_tool("res://scenes/settings/Settings.tscn")
+	if result:
+		await get_tree().create_timer(.1).timeout
+		%ToolBox.get_child(0).updated_config.connect(handle_updated_config)
+		%ToolBox.get_child(0).output_text.connect(handle_output_text)
 	
 
 func quit_program():

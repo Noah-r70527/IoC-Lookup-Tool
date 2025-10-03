@@ -20,8 +20,7 @@ size_flags_vertical = 3
 script = ExtResource("1_erkcc")
 
 [node name="MainContainer" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
+layout_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -119,6 +118,7 @@ unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 text = "Welcome to the [color=green]IoC Lookup Tool[/color]!"
+context_menu_enabled = true
 
 [node name="ToolBox" type="PanelContainer" parent="MainContainer/MainSplitter/RightVbox"]
 unique_name_in_owner = true

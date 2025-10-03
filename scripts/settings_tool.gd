@@ -23,6 +23,10 @@ func _ready():
 	%"Add Tool".pressed.connect(add_tool)
 	%"Remove Tool".pressed.connect(remove_tool)
 	%"List Tools".pressed.connect(list_tools)
+	%MinAbuseScoreSlider.drag_ended.connect(on_drag_abuse_end)
+	%MinAbuseScoreSlider.value_changed.connect(on_slider_value_change)
+	%MinAbuseScoreLabel.text = "Minimum Abuse Confidence Score For Logging: %s" % ConfigHandler.get_config_value("MINABUSESCORE") 
+	%MinAbuseScoreSlider.value = float(ConfigHandler.get_config_value("MINABUSESCORE"))
 	
 func update_name():
 	ConfigHandler.update_config_setting("NAME", %NameText.text)
@@ -79,3 +83,11 @@ func remove_tool():
 func list_tools():
 	emit_signal("output_text", "\n".join(ConfigHandler.get_config_value("TOOLS").split(",")))
 	
+	
+func on_slider_value_change(_updated_value):
+	var value_string = str(%MinAbuseScoreSlider.value).pad_decimals(2)
+	%MinAbuseScoreLabel.text = "Minimum Abuse Confidence Score For Logging: %s" % value_string 
+
+func on_drag_abuse_end(_updated_value):
+	ConfigHandler.update_config_setting("MINABUSESCORE", str(%MinAbuseScoreSlider.value))
+	print(ConfigHandler.get_config_value("MINABUSESCORE"))

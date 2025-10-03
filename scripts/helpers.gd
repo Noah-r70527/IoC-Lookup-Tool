@@ -144,6 +144,30 @@ func is_valid_domain(domain: String) -> bool:
 	
 	
 func parse_hash_lookup(data_in: Dictionary):
+	
 	if data_in.get("Error"):
 		return "Error: %s" % data_in.get("Error")
 		
+		
+func parse_top_ports(data_in: Dictionary) -> Array[Dictionary]:
+	
+	if data_in.get("Error"):
+		return [{"Parse error": "No values"}]
+		
+	var parsed_ports: Array[Dictionary]
+		
+	for key in data_in:
+		parsed_ports.append(
+			{
+				"Port": data_in.get("targetport", "Not found"),
+				"Rank": data_in.get("rank", "Not found"),
+				"Number of Records": data_in.get("records", "Not found"),
+				"Number of Targets": data_in.get("targets", "Not found"),
+				"Number of Sources": data_in.get("sources", "Not found")
+			}
+		)
+		
+	return parsed_ports
+		
+	
+	

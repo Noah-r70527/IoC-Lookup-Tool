@@ -6,7 +6,7 @@ extends Control
 
 signal switch_tool(tool_path)
 
-func _ready(): 
+func _ready():
 	button.text = tool_name
 	button.pressed.connect(on_switch_tool_click)
 	
