@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cli2h0e3cso4o"]
+[gd_scene load_steps=6 format=3 uid="uid://cli2h0e3cso4o"]
 
 [ext_resource type="Script" uid="uid://dfovibk18objb" path="res://scripts/ip_lookup_tool.gd" id="1_51ckl"]
 [ext_resource type="Theme" uid="uid://cvjkotbfb80tq" path="res://assets/UIMainTheme.tres" id="2_dx23m"]
+[ext_resource type="Script" uid="uid://m2ausnh853ty" path="res://scenes/tools/multi_lookup_label.gd" id="3_51ckl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jehqg"]
 border_width_left = 100
@@ -100,12 +101,14 @@ Lookup"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="HBoxContainer/MultiIPPanel"]
+[node name="MultiLookupLabel" type="Label" parent="HBoxContainer/MultiIPPanel"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
 size_flags_stretch_ratio = 0.0
 text = "Multi IP Lookup List Here:"
 horizontal_alignment = 1
+script = ExtResource("3_51ckl")
 
 [node name="MultiIPText" type="TextEdit" parent="HBoxContainer/MultiIPPanel"]
 unique_name_in_owner = true

@@ -40,11 +40,3 @@ func handle_defang_urls():
 		dir_access.make_dir("DefangedOutput")
 	CsvHelper.write_csv_dict("%s/DefangedOutput/defanged_urls.csv" % dir_access.get_current_dir(), list_writer)
 	output.append_text("[color=green]Finshed[/color]\n\n Wrote output to: \n%s/DefangedOutput" % dir_access.get_current_dir())
-
-
-func defang_ip(input_ip):
-	return input_ip.replace(".", "[.]")
-	
-	
-func defang_url(input_url):
-	return input_url.replace("https", "hxxps").replace(".", "[.]")

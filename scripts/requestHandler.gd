@@ -1,16 +1,22 @@
 extends Node
 
-@onready var requestHandler = %HTTPRequestHandler
+@onready var requestHandler: HTTPRequest = %HTTPRequestHandler
+@onready var ab_ip_key = ConfigHandler.get_config_value("ABUSE_IP_API_KEY")
+@onready var vt_key = ConfigHandler.get_config_value("VT_API_KEY")
 
 enum RequestType { ABUSEIPDB, VIRUSTOTAL }
 enum VTEndpoint { ip_address, domains}
+const SANS_BASE_URL: String = "http://isc.sans.edu/api/"
+const SANS_HANDLER: String = "handler?json"
+const SANSEndpont: Dictionary = {
+	"topports": "topports/records"
+}
 var current_request_type = null
 var ab_remaining = 0
 var vt_remaining = 0
-var ab_ip_key = ConfigHandler.get_config_value("ABUSE_IP_API_KEY") if ConfigHandler.get_config_value("ABUSE_IP_API_KEY") else "None"
-var vt_key = ConfigHandler.get_config_value("VT_API_KEY") if ConfigHandler.get_config_value("VT_API_KEY") else "None"
 
 func _ready():
+
 	pass
 
 func sync_api_keys():
@@ -156,4 +162,27 @@ func check_response_code(response_code_in):
 			return "Error"
 			
 		
+func build_sans_url(endpoint_in):
+	return "%s/%s/$s" % [SANS_BASE_URL, endpoint_in, SANS_HANDLER]
+
+
+func sans_api_query(endpoint_in) -> Dictionary:
+	var endpoint_value: String = SANSEndpont.get(endpoint_in, "None")
+	
+	if endpoint_value == "None": return {"Error": "Failed to find endpoint"}
+	
+	var url: String = build_sans_url(endpoint_value)
+	var headers = [
+	"User-Agent: Godot-Game-Engine-4.4",
+	"CI: %s" % ConfigHandler.get_config_value("CONTACT")
+	]
+	
+	requestHandler.request(url, headers)
+	var result = await requestHandler.request_completed
+	
+	if check_response_code(result[1]) == "Rate-Limited":
+		return {"error": "Rate-Limited"}
 		
+	var body: PackedByteArray = result[3]
+	var parse_result = JSON.parse_string(body.get_string_from_utf8())
+	return parse_result

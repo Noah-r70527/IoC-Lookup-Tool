@@ -1,13 +1,13 @@
 extends Control
 
-@onready var single_button = %SingleIPButton
-@onready var network_button = %NetworkLookupButton
-@onready var multi_button = %MultiIPButton
-@onready var report_button = %ReportLookupButton
-@onready var single_text = %SingleIPText
-@onready var network_text = %NetworkLookupText
-@onready var multi_text = %MultiIPText
-@onready var report_text = %ReportLookupText
+@onready var single_button: Button = %SingleIPButton
+@onready var network_button: Button = %NetworkLookupButton
+@onready var multi_button: Button = %MultiIPButton
+@onready var report_button: Button = %ReportLookupButton
+@onready var single_text: TextEdit = %SingleIPText
+@onready var network_text: TextEdit = %NetworkLookupText
+@onready var multi_text: TextEdit = %MultiIPText
+@onready var report_text: TextEdit = %ReportLookupText
 @onready var option_button: OptionButton = %ToolOption
 @onready var selected_option: String
 @onready var requester = get_parent().get_node("%HTTPRequestHandler")
@@ -24,6 +24,11 @@ func _ready():
 	if !ConfigHandler.get_config_value("ABUSE_IP_API_KEY") or ConfigHandler.get_config_value("ABUSE_IP_API_KEY") == "...":
 		for button in [single_button, multi_button, network_button, report_button]:
 			button.disabled = true
+	
+	single_text.text_changed.connect(text_changed_handler.bind(single_text))
+	multi_text.text_changed.connect(text_changed_handler.bind(multi_text))
+	report_text.text_changed.connect(text_changed_handler.bind(report_text))
+	network_text.text_changed.connect(text_changed_handler.bind(network_text))
 
 func get_tool_list():
 	var tool_list = ConfigHandler.get_config_value("TOOLS").split(",")
@@ -46,33 +51,33 @@ func do_single_IP_Lookup():
 	var result: Dictionary = await requester.make_abuseipdb_ip_request(ip)
 	var output_text = Helpers.parse_ip_lookup(result)
 	output.append_text(output_text)
-	if ConfigHandler.get_config_value("LOG_IP_TO_CSV") == "true":
-		var dir_access = DirAccess.open("%s/IPLookups" % OS.get_executable_path().get_base_dir())
+	if result.get("data"):
+		var temp = result.get("data")
 		var date_time = Time.get_datetime_dict_from_system(false)
 		var folder_string = "%s_%s_%s" % [date_time.year, date_time.month, date_time.day]
-		if not dir_access.dir_exists(folder_string):
-			dir_access.make_dir(folder_string)
-		var temp = result.get("data")
-		if result.get("data"):
-			var setup_data = {
-				"Date": folder_string,
-				"IP": temp.get("ipAddress"),
-				"Entered_By": ConfigHandler.get_config_value("NAME") if ConfigHandler.get_config_value("NAME") else "Blank",
-				"Detecting_System": selected_option,
-				"Abuse_Score": temp.get("abuseConfidenceScore
-				"),
-				"Total_Reports": temp.get("totalReports"),
-				"ISP": temp.get("isp"),
-				"Country_Code": temp.get("countryCode"),
-				"Hostnames": temp.get("hostnames"),
-				"Block/Unblock": "Block"
-			}
+		var setup_data = {
+			"Date": folder_string,
+			"IP": temp.get("ipAddress"),
+			"Entered_By": ConfigHandler.get_config_value("NAME") if ConfigHandler.get_config_value("NAME") else "Blank",
+			"Detecting_System": selected_option,
+			"Abuse_Score": temp.get("abuseConfidenceScore"),
+			"Total_Reports": temp.get("totalReports"),
+			"ISP": temp.get("isp"),
+			"Country_Code": temp.get("countryCode"),
+			"Hostnames": temp.get("hostnames"),
+			"Block/Unblock": "Block"
+		}
+		var min_score: float = float(ConfigHandler.get_config_value("MINABUSESCORE"))
+		if ConfigHandler.get_config_value("LOG_IP_TO_CSV") == "true" and float(setup_data.get("Abuse_Score") >= min_score):
+			var dir_access = DirAccess.open("%s/IPLookups" % OS.get_executable_path().get_base_dir())
+			if not dir_access.dir_exists(folder_string):
+				dir_access.make_dir(folder_string)
 			CsvHelper.write_csv_dict("%s/%s/single_lookup.csv" % [dir_access.get_current_dir(), folder_string],   #file name
 			[setup_data], # data to write
 			",", # delimiter
 			true # append to existing file?
 			)
-			
+				
 		
 	
 func do_network_lookup():
@@ -117,17 +122,27 @@ func do_multi_lookup():
 	
 	if ConfigHandler.get_config_value("LOG_IP_TO_CSV") == "true":
 		var dir_access = DirAccess.open("%s/IPLookups" % OS.get_executable_path().get_base_dir())
+		var updated_list = []
+		var min_score: float = float(ConfigHandler.get_config_value("MINABUSESCORE"))
+		for x in output_list:
+			var abuse_score = float(x.get("Abuse_Score", "0"))
+			if abuse_score >= min_score:
+				updated_list.append(x)
+				
 		if not dir_access.dir_exists(folder_string):
 			dir_access.make_dir(folder_string)
-
-		CsvHelper.write_csv_dict("%s/%s/multi_lookup.csv" % [dir_access.get_current_dir(), folder_string],   #file name
-		output_list, # data to write
-		",", # delimiter
-		true # append to existing file?
-		)
+		if len(updated_list) > 0:
+			CsvHelper.write_csv_dict("%s/%s/multi_lookup.csv" % [dir_access.get_current_dir(), folder_string],   #file name
+			updated_list, # data to write
+			",", # delimiter
+			true # append to existing file?
+			)
 
 		
-	
+func text_changed_handler(sender: TextEdit) -> void:
+	if ConfigHandler.get_config_value("AUTO_REARM") == "false":
+		return
 
-
 	
+	print("Text changed in:", sender.name)
+	print("Current text:", sender.text)
