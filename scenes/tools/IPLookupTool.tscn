@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dfovibk18objb" path="res://scripts/ip_lookup_tool.gd" id="1_51ckl"]
 [ext_resource type="Theme" uid="uid://cvjkotbfb80tq" path="res://assets/UIMainTheme.tres" id="2_dx23m"]
-[ext_resource type="Script" uid="uid://m2ausnh853ty" path="res://scenes/tools/multi_lookup_label.gd" id="3_51ckl"]
+[ext_resource type="Script" uid="uid://m2ausnh853ty" path="res://scripts/multi_lookup_label.gd" id="3_51ckl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jehqg"]
 border_width_left = 100

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d2qgm0m7jrpcb" path="res://scripts/url_lookup_tool.gd" id="1_kfh15"]
 [ext_resource type="Theme" uid="uid://cvjkotbfb80tq" path="res://assets/UIMainTheme.tres" id="2_kfh15"]
-[ext_resource type="Script" uid="uid://crlid52baurjq" path="res://scenes/tools/mutli_url_label.gd" id="3_kfh15"]
+[ext_resource type="Script" uid="uid://crlid52baurjq" path="res://scripts/mutli_url_label.gd" id="3_kfh15"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0oth"]
 border_width_left = 100

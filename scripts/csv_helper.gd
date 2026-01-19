@@ -33,14 +33,15 @@ func read_csv_dict(file_path: String, delimiter: String = ",") -> Array:
 	return rows
 
 
-func write_csv_dict(file_path: String, data: Array, delimiter: String = ",", append: bool = true) -> void:
+func write_csv_dict(file_path: String, data: Dictionary, delimiter: String = ",", append: bool = true) -> void:
 	if data.is_empty():
 		push_warning("No data provided to write.")
 		return
 
-	var headers = data[0].keys()
+	var headers = data.keys()
 	var file_exists := FileAccess.file_exists(file_path)
 	var write_mode := FileAccess.WRITE
+
 
 	if append and file_exists:
 		write_mode = FileAccess.READ_WRITE
@@ -51,16 +52,16 @@ func write_csv_dict(file_path: String, data: Array, delimiter: String = ",", app
 	if file == null:
 		push_error("Failed to open file: %s" % file_path)
 		return
-
+	
+	print(file.get_path())
 	if append and file_exists:
 		file.seek_end()
 	else:
 		file.store_line(delimiter.join(headers))
-
-	for row in data:
-		var row_values := []
-		for header in headers:
-			row_values.append(str(row.get(header, "")))
-		file.store_line(delimiter.join(row_values))
+	
+	var row_values = []
+	for header in headers:
+		row_values.append(str(data.get(header, "")))
+	file.store_line(delimiter.join(row_values))
 
 	file.close()

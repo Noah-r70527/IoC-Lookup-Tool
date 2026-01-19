@@ -140,7 +140,6 @@ func make_hash_lookup_request(input_hash) -> Dictionary:
 
 	var result = await requestHandler.request_completed
 	var body: PackedByteArray = result[3]
-	print(body)
 	var parse_result = JSON.parse_string(body.get_string_from_utf8())
 	return parse_result
 	

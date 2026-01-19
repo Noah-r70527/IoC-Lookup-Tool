@@ -73,7 +73,7 @@ func do_single_IP_Lookup():
 			if not dir_access.dir_exists(folder_string):
 				dir_access.make_dir(folder_string)
 			CsvHelper.write_csv_dict("%s/%s/single_lookup.csv" % [dir_access.get_current_dir(), folder_string],   #file name
-			[setup_data], # data to write
+			setup_data, # data to write
 			",", # delimiter
 			true # append to existing file?
 			)
@@ -90,17 +90,29 @@ func do_report_lookup():
 	
 func do_multi_lookup():
 	output.clear()
-	var output_list = []
 	var ip_list = %MultiIPText.text.split("\n")
-	output.append_text("Starting multi-IP lookup on %s IPs...\n\n" % len(ip_list))
+	var write_to_csv: bool = ConfigHandler.get_config_value("LOG_IP_TO_CSV") == "true"
+	var min_score: float = float(ConfigHandler.get_config_value("MINABUSESCORE"))
 	var date_time = Time.get_datetime_dict_from_system(false)
-	var folder_string = "%s_%s_%s" % [date_time.year, date_time.month, date_time.day]
+	var folder_string: String = "%s_%s_%s" % [date_time.year, date_time.month, date_time.day]
+	var dir_access: DirAccess
+	if write_to_csv:
+		dir_access = DirAccess.open("%s/IPLookups" % OS.get_executable_path().get_base_dir())
+		if not dir_access.dir_exists(folder_string):
+			dir_access.make_dir(folder_string)
+	output.append_text("Starting multi-IP lookup on %s IPs...\n\n" % len(ip_list))
 	for ip in ip_list:
+		
 		if not (Helpers.is_valid_ipv4(ip) or Helpers.is_valid_ipv6(ip)):
 			output.append_text("[color=red]Improper IP entered:[/color] [color=white]%s[/color]\n\n" % ip)
 			continue
+			
 		output.append_text("[color=green]Doing IP lookup on:[/color] [color=white]%s[/color]\n" % ip)
 		var result: Dictionary = await requester.make_abuseipdb_ip_request(ip)
+		
+		if result.get("error"):
+			break
+			
 		var output_text = Helpers.parse_multi_ip_lookup(result)
 		output.append_text(output_text)
 		if result.get("data"):
@@ -115,34 +127,19 @@ func do_multi_lookup():
 				"ISP": temp.get("isp"),
 				"Country_Code": temp.get("countryCode"),
 				"Hostnames": temp.get("hostnames"),
-				"Block/Unblock": "Block"
+				"Block/Unblock": "Block/Unblock"
 			}
-			output_list.append(setup_data)
+			var abuse_score = float(setup_data.get("Abuse_Score", "0"))
+			if abuse_score >= min_score and write_to_csv:
+				CsvHelper.write_csv_dict("%s/%s/multi_lookup.csv" % [dir_access.get_current_dir(), folder_string],   #file name
+				setup_data, # data to write
+				",", # delimiter
+				true # append to existing file?
+				)
 		await get_tree().create_timer(.5).timeout
-	
-	if ConfigHandler.get_config_value("LOG_IP_TO_CSV") == "true":
-		var dir_access = DirAccess.open("%s/IPLookups" % OS.get_executable_path().get_base_dir())
-		var updated_list = []
-		var min_score: float = float(ConfigHandler.get_config_value("MINABUSESCORE"))
-		for x in output_list:
-			var abuse_score = float(x.get("Abuse_Score", "0"))
-			if abuse_score >= min_score:
-				updated_list.append(x)
-				
-		if not dir_access.dir_exists(folder_string):
-			dir_access.make_dir(folder_string)
-		if len(updated_list) > 0:
-			CsvHelper.write_csv_dict("%s/%s/multi_lookup.csv" % [dir_access.get_current_dir(), folder_string],   #file name
-			updated_list, # data to write
-			",", # delimiter
-			true # append to existing file?
-			)
+
 
 		
 func text_changed_handler(sender: TextEdit) -> void:
 	if ConfigHandler.get_config_value("AUTO_REARM") == "false":
 		return
-
-	
-	print("Text changed in:", sender.name)
-	print("Current text:", sender.text)
