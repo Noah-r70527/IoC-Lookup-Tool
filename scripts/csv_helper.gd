@@ -1,7 +1,5 @@
 extends Node
 
-class_name CSVHelper
-
 func read_csv_dict(file_path: String, delimiter: String = ",") -> Array:
 	var rows: Array = []
 	if not FileAccess.file_exists(file_path):

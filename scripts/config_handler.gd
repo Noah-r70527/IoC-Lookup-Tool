@@ -31,11 +31,11 @@ func _ready() -> void:
 		_save_config() 
 
 func _set_defaults() -> void:
-	for key in DEFAULT_CONFIG_ENTRIES:
+	for key in DEFAULT_CONFIG_ENTRIES.keys():
 		config.set_value("Config", key, DEFAULT_CONFIG_ENTRIES[key])
 
 func _fill_missing_defaults() -> void:
-	for key in DEFAULT_CONFIG_ENTRIES:
+	for key in DEFAULT_CONFIG_ENTRIES.keys():
 		if not config.has_section_key("Config", key):
 			config.set_value("Config", key, DEFAULT_CONFIG_ENTRIES[key])
 

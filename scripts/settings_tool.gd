@@ -52,17 +52,14 @@ func update_api_key(system):
 func toggle_ip_log():
 	var updated = "false" if !%IPCsvCheck.button_pressed else "true"
 	ConfigHandler.update_config_setting("LOG_IP_TO_CSV", updated)
-	print(ConfigHandler.get_config_value("LOG_IP_TO_CSV"))
 
 func toggle_url_log():
 	var updated = "false" if !%URLCsvCheck.button_pressed else "true"
 	ConfigHandler.update_config_setting("LOG_URL_TO_CSV", updated)
-	print(ConfigHandler.get_config_value("LOG_URL_TO_CSV"))
-
+	
 func toggle_auto_rearm():
 	var updated = "false" if !%AutoDefangButton.button_pressed else "true"
 	ConfigHandler.update_config_setting("AUTO_REFANG", updated)
-	
 	
 func add_tool():
 	var current_tools: PackedStringArray = ConfigHandler.get_config_value("TOOLS").split(",")

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="IoC Lookup Tool"
-config/version="1.3"
+config/version="1.4"
 run/main_scene="uid://dy77c8ent20lg"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="uid://dk8nmpmuld2ja"
@@ -20,6 +20,7 @@ config/icon="uid://dk8nmpmuld2ja"
 
 ConfigHandler="*res://scripts/config_handler.gd"
 CsvHelper="*res://scripts/csv_helper.gd"
+Globals="*res://scripts/globals.gd"
 
 [debug]
 

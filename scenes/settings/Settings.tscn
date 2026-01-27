@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b2fv8iuaj0d8h" path="res://scripts/settings_tool.gd" id="1_ksth8"]
 [ext_resource type="Theme" uid="uid://cvjkotbfb80tq" path="res://assets/UIMainTheme.tres" id="2_wjxgb"]
-[ext_resource type="Script" uid="uid://d0v66dhbsoovr" path="res://scenes/settings/min_abuse_score_slider.gd" id="3_ksth8"]
+[ext_resource type="Script" uid="uid://d0v66dhbsoovr" path="res://scripts/min_abuse_score_slider.gd" id="3_ksth8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jehqg"]
 border_width_left = 100
@@ -197,18 +197,18 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="LogURLToCSV2" type="HBoxContainer" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel"]
+[node name="Auto-Rearm" type="HBoxContainer" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Label" type="Label" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel/LogURLToCSV2"]
+[node name="Label" type="Label" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel/Auto-Rearm"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 text = "Auto-rearm pasted content?"
 
-[node name="AutoDefangButton" type="CheckButton" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel/LogURLToCSV2"]
+[node name="AutoDefangButton" type="CheckButton" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel/Auto-Rearm"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
