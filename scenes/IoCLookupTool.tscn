@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dy77c8ent20lg"]
+[gd_scene load_steps=12 format=3 uid="uid://dy77c8ent20lg"]
 
 [ext_resource type="Theme" uid="uid://cvjkotbfb80tq" path="res://assets/UIMainTheme.tres" id="1_5qg7n"]
 [ext_resource type="Script" uid="uid://ddqcffego8o3y" path="res://scripts/ioc_lookup_tool.gd" id="1_erkcc"]
@@ -6,7 +6,27 @@
 [ext_resource type="PackedScene" uid="uid://dk6k86ro0etqm" path="res://scenes/ToolSelector.tscn" id="3_ra6i8"]
 [ext_resource type="StyleBox" uid="uid://cl7kuthx7ny8f" path="res://assets/DisplayStyleBox.tres" id="4_ra6i8"]
 [ext_resource type="PackedScene" uid="uid://cli2h0e3cso4o" path="res://scenes/tools/IPLookupTool.tscn" id="5_p6akj"]
+[ext_resource type="Script" uid="uid://tqa3hrrdx2pp" path="res://scenes/progress_bar_container.gd" id="6_00uwb"]
+[ext_resource type="Script" uid="uid://ch7f15xasnixh" path="res://scenes/output_display.gd" id="6_f1054"]
 [ext_resource type="Script" uid="uid://cuv8gjnur7u5r" path="res://scripts/requestHandler.gd" id="7_ra6i8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1054"]
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6bv4k"]
+bg_color = Color(0, 0.482353, 0.0470588, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="IoCLookupTool" type="Control"]
 layout_mode = 3
@@ -102,23 +122,69 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Quit Application"
 
+[node name="test" type="Button" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Test"
+
 [node name="RightVbox" type="VBoxContainer" parent="MainContainer/MainSplitter"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="DisplayContainer" type="PanelContainer" parent="MainContainer/MainSplitter/RightVbox"]
+[node name="DisplayVbox" type="VBoxContainer" parent="MainContainer/MainSplitter/RightVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DisplayContainer" type="PanelContainer" parent="MainContainer/MainSplitter/RightVbox/DisplayVbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = ExtResource("4_ra6i8")
 
-[node name="OutputDisplay" type="RichTextLabel" parent="MainContainer/MainSplitter/RightVbox/DisplayContainer"]
+[node name="OutputDisplay" type="RichTextLabel" parent="MainContainer/MainSplitter/RightVbox/DisplayVbox/DisplayContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 2
 bbcode_enabled = true
 text = "Welcome to the [color=green]IoC Lookup Tool[/color]!"
 context_menu_enabled = true
+selection_enabled = true
+script = ExtResource("6_f1054")
+
+[node name="ProgressBarContainer" type="HBoxContainer" parent="MainContainer/MainSplitter/RightVbox/DisplayVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+script = ExtResource("6_00uwb")
+
+[node name="ProgressBar" type="ProgressBar" parent="MainContainer/MainSplitter/RightVbox/DisplayVbox/ProgressBarContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+theme_override_styles/background = SubResource("StyleBoxFlat_f1054")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6bv4k")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="ProgressLabel" type="Label" parent="MainContainer/MainSplitter/RightVbox/DisplayVbox/ProgressBarContainer/ProgressBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+size_flags_stretch_ratio = 0.5
+text = "Progress: 10/100"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ToolBox" type="PanelContainer" parent="MainContainer/MainSplitter/RightVbox"]
 unique_name_in_owner = true

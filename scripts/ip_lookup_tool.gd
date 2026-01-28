@@ -11,8 +11,8 @@ extends Control
 @onready var option_button: OptionButton = %ToolOption
 @onready var selected_option: String
 @onready var requester = get_parent().get_node("%HTTPRequestHandler")
-@onready var output = get_parent().get_node("%OutputDisplay")
 
+var _pending_ip := false
 
 func _ready(): 
 	get_tool_list()
@@ -41,16 +41,24 @@ func swap_selected_tool(index_in):
 	selected_option = option_button.get_item_text(index_in)
 
 func do_single_IP_Lookup():
-	output.clear()
 	var ip = %SingleIPText.text
 	if not (Helpers.is_valid_ipv4(ip) or Helpers.is_valid_ipv6(ip)):
-			output.append_text("[color=red]Improper IP entered:[/color] [color=white]%s[/color]\n\n" % ip)
+			Globals.emit_signal(
+				"output_display_update",
+				["[color=red]Improper IP entered:[/color] [color=white]%s[/color]\n\n" % [ip],
+				false]
+			)
 			return
 			
-	output.append_text("[color=green]Doing IP lookup on:[/color] [color=white]%s[/color]\n\n" % ip)
+	Globals.emit_signal(
+		"output_display_update",
+		"[color=green]Doing IP lookup on:[/color] [color=white]%s[/color]\n\n" % [ip], 
+		false
+		)
+		
 	var result: Dictionary = await requester.make_abuseipdb_ip_request(ip)
 	var output_text = Helpers.parse_ip_lookup(result)
-	output.append_text(output_text)
+	Globals.emit_signal("output_display_update", output_text, true)
 	if result.get("data"):
 		var temp = result.get("data")
 		var date_time = Time.get_datetime_dict_from_system(false)
@@ -79,17 +87,16 @@ func do_single_IP_Lookup():
 			)
 				
 		
-	
+# To-Do
 func do_network_lookup():
 	pass
 	
-
+# To-Do
 func do_report_lookup():
 	pass
 	
 	
 func do_multi_lookup():
-	output.clear()
 	var ip_list = %MultiIPText.text.split("\n")
 	var write_to_csv: bool = ConfigHandler.get_config_value("LOG_IP_TO_CSV") == "true"
 	var min_score: float = float(ConfigHandler.get_config_value("MINABUSESCORE"))
@@ -100,21 +107,35 @@ func do_multi_lookup():
 		dir_access = DirAccess.open("%s/IPLookups" % OS.get_executable_path().get_base_dir())
 		if not dir_access.dir_exists(folder_string):
 			dir_access.make_dir(folder_string)
-	output.append_text("Starting multi-IP lookup on %s IPs...\n\n" % len(ip_list))
+	Globals.emit_signal(
+		"output_display_update",
+		"Starting multi-IP lookup on %s IPs...\n\n" % [len(ip_list)], false
+		)
+	Globals.emit_signal("toggle_progress_visibility")
+	var itters = 0
 	for ip in ip_list:
-		
+
 		if not (Helpers.is_valid_ipv4(ip) or Helpers.is_valid_ipv6(ip)):
-			output.append_text("[color=red]Improper IP entered:[/color] [color=white]%s[/color]\n\n" % ip)
+			Globals.emit_signal(
+				"output_display_update", 
+				"[color=red]Improper IP entered:[/color] [color=white]%s[/color]\n\n" % [ip],
+				true
+			)
 			continue
-			
-		output.append_text("[color=green]Doing IP lookup on:[/color] [color=white]%s[/color]\n" % ip)
+		Globals.emit_signal(
+			"output_display_update",
+			"[color=green]Doing IP lookup on:[/color] [color=white]%s[/color]\n" % [ip],
+			true
+		)
 		var result: Dictionary = await requester.make_abuseipdb_ip_request(ip)
 		
 		if result.get("error"):
 			break
 			
 		var output_text = Helpers.parse_multi_ip_lookup(result)
-		output.append_text(output_text)
+		itters += 1
+		Globals.emit_signal("progress_bar_update", "IP", itters, len(ip_list))
+		Globals.emit_signal("output_display_update", output_text + "\n", true)
 		if result.get("data"):
 			var temp = result.get("data")
 			var setup_data = {
@@ -137,9 +158,44 @@ func do_multi_lookup():
 				true # append to existing file?
 				)
 		await get_tree().create_timer(.5).timeout
+	Globals.emit_signal("toggle_progress_visibility")
 
 
 		
+
 func text_changed_handler(sender: TextEdit) -> void:
 	if ConfigHandler.get_config_value("AUTO_REARM") == "false":
 		return
+	if _pending_ip:
+		return
+
+	_pending_ip = true
+	call_deferred("_apply_rearm_ip", sender)
+
+func _apply_rearm_ip(sender: TextEdit) -> void:
+	_pending_ip = false
+
+	var lines := sender.text.split("\n", false)
+	var any_changed := false
+
+	for i in range(lines.size()):
+		var before := lines[i]
+		var res = Helpers.rearm_ip(before)
+		var after: String = res[0]
+
+		if after != before:
+			lines[i] = after
+			any_changed = true
+
+	if !any_changed:
+		return
+
+	var line := sender.get_caret_line()
+	var col := sender.get_caret_column()
+
+	sender.text = "\n".join(lines)
+
+	line = clamp(line, 0, sender.get_line_count() - 1)
+	col = clamp(col, 0, sender.get_line(line).length())
+	sender.set_caret_line(line)
+	sender.set_caret_column(col)

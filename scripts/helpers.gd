@@ -170,9 +170,22 @@ static func defang_url(input_url):
 	return input_url.replace("https", "hxxps").replace(".", "[.]")
 	
 
-static func rearm_ip(input_ip):
-	return input_ip.replace("[.]", ".")
+static func rearm_ip(input_ip) -> Array:
+	var temp = input_ip.replace("[.]", ".")
+	if is_valid_ipv4(temp):
+		return [temp, true]
+	return [input_ip, false]
 	
 	
 static func rearm_url(input_url):
-	return input_url.replace("hxxps", "https").replace("[.]", ".")
+	var temp = input_url.replace("hxxps", "https").replace("[.]", ".")
+	if is_valid_domain(temp):
+		return [temp, true]
+	return [input_url, false]
+
+static func _init_create_dirs():
+	var dir_access = DirAccess.open(OS.get_executable_path().get_base_dir())
+	if not dir_access.dir_exists("IPLookups"):
+		dir_access.make_dir("IPLookups")
+	if not dir_access.dir_exists("URLLookups"):
+		dir_access.make_dir("URLLookups")

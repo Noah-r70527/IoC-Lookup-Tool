@@ -23,6 +23,7 @@ func _ready() -> void:
 	
 	var err = config.load_encrypted_pass(SETTINGS_FILE_PATH, pass_key)
 	if err != OK:
+	
 		print("Config not found or invalid, creating new with defaults")
 		_set_defaults()
 		_save_config()
@@ -31,11 +32,11 @@ func _ready() -> void:
 		_save_config() 
 
 func _set_defaults() -> void:
-	for key in DEFAULT_CONFIG_ENTRIES:
+	for key in DEFAULT_CONFIG_ENTRIES.keys():
 		config.set_value("Config", key, DEFAULT_CONFIG_ENTRIES[key])
 
 func _fill_missing_defaults() -> void:
-	for key in DEFAULT_CONFIG_ENTRIES:
+	for key in DEFAULT_CONFIG_ENTRIES.keys():
 		if not config.has_section_key("Config", key):
 			config.set_value("Config", key, DEFAULT_CONFIG_ENTRIES[key])
 

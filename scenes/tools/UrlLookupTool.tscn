@@ -15,7 +15,7 @@ border_blend = true
 HBoxContainer/constants/separation = 5
 VBoxContainer/styles/Style = SubResource("StyleBoxFlat_g0oth")
 
-[node name="IpLookupTool" type="Control"]
+[node name="UrlLookupTool" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

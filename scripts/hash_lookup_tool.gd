@@ -16,7 +16,6 @@ func _ready():
 func on_single_hash_clicked():
 	var hash_text = single_hash_text.text
 	var result = await requester.make_hash_lookup_request(hash_text)
-	print(result)
 	
 func on_multi_hash_clicked():
 	pass
