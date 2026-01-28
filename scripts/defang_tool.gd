@@ -12,7 +12,7 @@ func _ready():
 	
 	
 func handle_defang_ips():
-	var dir_access = DirAccess.open("%s" % OS.get_executable_path().get_base_dir())
+	var dir_access = DirAccess.open(OS.get_executable_path().get_base_dir())
 	if not dir_access.dir_exists("DefangedOutput"):
 		dir_access.make_dir("DefangedOutput")
 	var defang_ip_list = ip_defang_text.text.split("\n")

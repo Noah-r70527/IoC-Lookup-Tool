@@ -2,6 +2,7 @@ extends Control
 
 @onready var tool_box = %ToolBox
 @onready var output_display = %OutputDisplay
+@onready var requester = %HTTPRequestHandler
 var current_tool: String = "IP Lookup Tool"
 
 
@@ -18,13 +19,20 @@ func _ready():
 
 	%SettingsButton.pressed.connect(on_settings_clicked)
 	%"Quit Button".pressed.connect(quit_program)
+	%test.pressed.connect(test_button)
 	for node in %ToolVbox.get_children():
 		node.switch_tool.connect(handle_swap_tool)
+		
+	var version: Dictionary = await requester.check_release_version()
+	if version.has("version") and version.get("version") != Globals.version:
+		Globals.emit_signal("output_display_update", 
+		"\n\n[color=red]Updated version available:[/color] [url]https://github.com/Noah-r70527/IoC-Lookup-Tool/releases/latest[/url]",
+		true
+		)
 	
 func handle_swap_tool(tool_scene_path):
 	
 	var scene_to_tool_name = Globals.return_scene_dict()
-	
 	if scene_to_tool_name.get(tool_scene_path) == current_tool:
 		return null
 
@@ -80,3 +88,6 @@ func on_settings_clicked():
 
 func quit_program():
 	get_tree().quit()
+	
+func test_button():
+	requester.check_release_version()

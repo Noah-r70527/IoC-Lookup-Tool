@@ -23,6 +23,7 @@ func _ready() -> void:
 	
 	var err = config.load_encrypted_pass(SETTINGS_FILE_PATH, pass_key)
 	if err != OK:
+	
 		print("Config not found or invalid, creating new with defaults")
 		_set_defaults()
 		_save_config()

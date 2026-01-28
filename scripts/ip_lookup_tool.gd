@@ -12,6 +12,7 @@ extends Control
 @onready var selected_option: String
 @onready var requester = get_parent().get_node("%HTTPRequestHandler")
 
+var _pending_ip := false
 
 func _ready(): 
 	get_tool_list()
@@ -86,11 +87,11 @@ func do_single_IP_Lookup():
 			)
 				
 		
-	
+# To-Do
 func do_network_lookup():
 	pass
 	
-
+# To-Do
 func do_report_lookup():
 	pass
 	
@@ -110,8 +111,10 @@ func do_multi_lookup():
 		"output_display_update",
 		"Starting multi-IP lookup on %s IPs...\n\n" % [len(ip_list)], false
 		)
+	Globals.emit_signal("toggle_progress_visibility")
+	var itters = 0
 	for ip in ip_list:
-		
+
 		if not (Helpers.is_valid_ipv4(ip) or Helpers.is_valid_ipv6(ip)):
 			Globals.emit_signal(
 				"output_display_update", 
@@ -130,6 +133,8 @@ func do_multi_lookup():
 			break
 			
 		var output_text = Helpers.parse_multi_ip_lookup(result)
+		itters += 1
+		Globals.emit_signal("progress_bar_update", "IP", itters, len(ip_list))
 		Globals.emit_signal("output_display_update", output_text + "\n", true)
 		if result.get("data"):
 			var temp = result.get("data")
@@ -153,13 +158,44 @@ func do_multi_lookup():
 				true # append to existing file?
 				)
 		await get_tree().create_timer(.5).timeout
+	Globals.emit_signal("toggle_progress_visibility")
 
 
 		
-func text_changed_handler(_sender: TextEdit) -> void:
-	
+
+func text_changed_handler(sender: TextEdit) -> void:
 	if ConfigHandler.get_config_value("AUTO_REARM") == "false":
 		return
-	var temp = Helpers.rearm_ip(_sender.text)
-	if temp[1]:
-		_sender.text =  temp[0]
+	if _pending_ip:
+		return
+
+	_pending_ip = true
+	call_deferred("_apply_rearm_ip", sender)
+
+func _apply_rearm_ip(sender: TextEdit) -> void:
+	_pending_ip = false
+
+	var lines := sender.text.split("\n", false)
+	var any_changed := false
+
+	for i in range(lines.size()):
+		var before := lines[i]
+		var res = Helpers.rearm_ip(before)
+		var after: String = res[0]
+
+		if after != before:
+			lines[i] = after
+			any_changed = true
+
+	if !any_changed:
+		return
+
+	var line := sender.get_caret_line()
+	var col := sender.get_caret_column()
+
+	sender.text = "\n".join(lines)
+
+	line = clamp(line, 0, sender.get_line_count() - 1)
+	col = clamp(col, 0, sender.get_line(line).length())
+	sender.set_caret_line(line)
+	sender.set_caret_column(col)

@@ -185,3 +185,31 @@ func sans_api_query(endpoint_in) -> Dictionary:
 	var body: PackedByteArray = result[3]
 	var parse_result = JSON.parse_string(body.get_string_from_utf8())
 	return parse_result
+
+
+func check_release_version() -> Dictionary:
+	var url = "https://api.github.com/repos/Noah-r70527/IoC-Lookup-Tool/releases/latest"
+	var headers := [
+		"Accept: application/vnd.github+json",
+		"User-Agent: Godot-Release-Checker"
+	]
+
+	requestHandler.request(url, headers)
+	var result = await requestHandler.request_completed
+
+	var response_code: int = result[1]
+	var body: PackedByteArray = result[3]
+	var text := body.get_string_from_utf8()
+
+	if response_code == 403 and text.find("rate limit") != -1:
+		return {"error": "Rate-Limited"}
+
+	var json = JSON.new()
+	var err = json.parse(text)
+	if err != OK:
+		push_error("JSON parse failed: %s" % json.get_error_message())
+		push_error("At line: %d" % json.get_error_line())
+		print(text.left(200))
+		return {"error": "Bad JSON", "code": response_code}
+
+	return {"version": json.data.get("tag_name")}

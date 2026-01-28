@@ -8,6 +8,8 @@ extends Control
 @onready var single_url_text = %SingleURLText
 @onready var requester = get_parent().get_node("%HTTPRequestHandler")
 
+var _pending := false
+
 
 func _ready(): 
 	single_url_button.pressed.connect(do_single_url_Lookup)
@@ -20,6 +22,7 @@ func _ready():
 			
 	single_url_text.text_changed.connect(text_changed_handler.bind(single_url_text))
 	multi_url_text.text_changed.connect(text_changed_handler.bind(multi_url_text))
+	dns_lookup_text.text_changed.connect(text_changed_handler.bind(dns_lookup_text))
 
 
 
@@ -91,7 +94,10 @@ func do_multi_url_lookup():
 		if not dir_access.dir_exists(folder_string):
 			dir_access.make_dir(folder_string)
 			
+	Globals.emit_signal("toggle_progress_visibility")
+	var itters = 0	
 	for url in url_list:
+		
 		var is_valid = Helpers.is_valid_domain(Helpers.extract_domain(url))
 		if not is_valid:
 			Globals.emit_signal(
@@ -107,6 +113,8 @@ func do_multi_url_lookup():
 			true
 			)
 		var result: Dictionary = await requester.make_virustotal_request(url, "Domain")
+		itters += 1
+		Globals.emit_signal("progress_bar_update", "IP", itters, len(url_list))
 		if result.get("error"):
 			break
 		var output = Helpers.parse_multi_url_lookup(result)
@@ -123,16 +131,46 @@ func do_multi_url_lookup():
 		)
 		await get_tree().create_timer(15).timeout
 
+	Globals.emit_signal("toggle_progress_visibility")
 
-func text_changed_handler(_sender: TextEdit) -> void:
-	
+
+
+
+
+
+func text_changed_handler(sender: TextEdit) -> void:
 	if ConfigHandler.get_config_value("AUTO_REARM") == "false":
 		return
-	var temp = Helpers.rearm_ip(_sender.text)
-	if temp[1]:
-		_sender.text =  temp[0]
-		
-	
+	if _pending:
+		return
 
+	_pending = true
+	call_deferred("_apply_rearm", sender)
 
-	
+func _apply_rearm(sender: TextEdit) -> void:
+	_pending = false
+
+	var lines := sender.text.split("\n", false)
+	var any_changed := false
+
+	for i in range(lines.size()):
+		var before := lines[i]
+		var res = Helpers.rearm_url(before)
+		var after: String = res[0]
+
+		if after != before:
+			lines[i] = after
+			any_changed = true
+
+	if !any_changed:
+		return
+
+	var line := sender.get_caret_line()
+	var col := sender.get_caret_column()
+
+	sender.text = "\n".join(lines)
+
+	line = clamp(line, 0, sender.get_line_count() - 1)
+	col = clamp(col, 0, sender.get_line(line).length())
+	sender.set_caret_line(line)
+	sender.set_caret_column(col)
