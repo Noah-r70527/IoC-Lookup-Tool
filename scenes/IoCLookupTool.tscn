@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dk6k86ro0etqm" path="res://scenes/ToolSelector.tscn" id="3_ra6i8"]
 [ext_resource type="StyleBox" uid="uid://cl7kuthx7ny8f" path="res://assets/DisplayStyleBox.tres" id="4_ra6i8"]
 [ext_resource type="PackedScene" uid="uid://cli2h0e3cso4o" path="res://scenes/tools/IPLookupTool.tscn" id="5_p6akj"]
-[ext_resource type="Script" uid="uid://tqa3hrrdx2pp" path="res://scenes/progress_bar_container.gd" id="6_00uwb"]
-[ext_resource type="Script" uid="uid://ch7f15xasnixh" path="res://scenes/output_display.gd" id="6_f1054"]
+[ext_resource type="Script" uid="uid://tqa3hrrdx2pp" path="res://scripts/progress_bar_container.gd" id="6_00uwb"]
+[ext_resource type="Script" uid="uid://ch7f15xasnixh" path="res://scripts/output_display.gd" id="6_f1054"]
 [ext_resource type="Script" uid="uid://cuv8gjnur7u5r" path="res://scripts/requestHandler.gd" id="7_ra6i8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1054"]
@@ -124,7 +124,6 @@ text = "Quit Application"
 
 [node name="test" type="Button" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Test"
@@ -149,7 +148,7 @@ unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 2
 bbcode_enabled = true
-text = "Welcome to the [color=green]IoC Lookup Tool[/color]!"
+text = "Welcome to the [color=green]NDRTech InfoSec Tool[/color]!"
 context_menu_enabled = true
 selection_enabled = true
 script = ExtResource("6_f1054")
@@ -199,3 +198,6 @@ layout_mode = 2
 [node name="HTTPRequestHandler" type="HTTPRequest" parent="."]
 unique_name_in_owner = true
 script = ExtResource("7_ra6i8")
+
+[connection signal="request_completed" from="HTTPRequestHandler" to="." method="_on_http_request_handler_request_completed"]
+[connection signal="request_completed" from="HTTPRequestHandler" to="HTTPRequestHandler" method="_on_request_completed"]

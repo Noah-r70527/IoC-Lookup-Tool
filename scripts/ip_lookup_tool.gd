@@ -12,7 +12,7 @@ extends Control
 @onready var selected_option: String
 @onready var requester = get_parent().get_node("%HTTPRequestHandler")
 
-var _pending_ip := false
+var _pending_ip: bool = false
 
 func _ready(): 
 	get_tool_list()

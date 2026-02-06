@@ -22,6 +22,12 @@ func _ready():
 	%test.pressed.connect(test_button)
 	for node in %ToolVbox.get_children():
 		node.switch_tool.connect(handle_swap_tool)
+	await requester.init_defender_token()
+	if requester.defender_token != "Unable to get token.":
+		Globals.emit_signal("output_display_update", 
+		"\n\n[color=blue]Defender Token Aquired[/color]",
+		true
+		)
 		
 	var version: Dictionary = await requester.check_release_version()
 	if version.has("version") and version.get("version") != Globals.version:
@@ -90,4 +96,14 @@ func quit_program():
 	get_tree().quit()
 	
 func test_button():
-	requester.check_release_version()
+	var template_indicator: rIndicator = rIndicator.new()
+	template_indicator.indicatorValue = '217.29.135.22'
+	template_indicator.indicatorType = rIndicator.IndicatorType.IpAddress
+	template_indicator.indicatorAction = rIndicator.IndicatorAction.Warn
+	template_indicator.indicatorSeverity = rIndicator.Severity.Medium
+	template_indicator.indicatorTitle = "Test"
+	template_indicator.indicatorDescription = "Testing tool"
+	template_indicator.indicatorRecommendedActions = "None"
+	
+	var result = await requester.create_defender_indicator(template_indicator)
+	print(result)

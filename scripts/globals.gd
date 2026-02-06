@@ -1,5 +1,6 @@
 extends Node
 
+
 signal output_display_update(text: String, append: bool)
 signal progress_bar_update(lookup_type: String, current_number: int, max_number: int)
 signal toggle_progress_visibility

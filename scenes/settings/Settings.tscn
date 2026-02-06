@@ -50,7 +50,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_ukskx")
-theme_override_constants/separation = 10
+theme_override_constants/separation = 15
 alignment = 1
 
 [node name="AbuseIPDBBox" type="HBoxContainer" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel"]
@@ -72,6 +72,69 @@ size_flags_horizontal = 3
 theme = ExtResource("2_wjxgb")
 text = "Update AbuseIPDB 
 API Key
+"
+
+[node name="DefenderClientId" type="HBoxContainer" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="DefenderClientIdText" type="TextEdit" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel/DefenderClientId"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+placeholder_text = "**********************************"
+
+[node name="DefenderClientIdButton" type="Button" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel/DefenderClientId"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wjxgb")
+text = "Update Defender 
+Client ID
+"
+
+[node name="DefenderClientSecret" type="HBoxContainer" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="DefenderClientSecretText" type="TextEdit" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel/DefenderClientSecret"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+placeholder_text = "**********************************"
+
+[node name="DefenderClientSecretButton" type="Button" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel/DefenderClientSecret"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wjxgb")
+text = "Update Defender 
+Client Secret
+"
+
+[node name="DefenderTenantId" type="HBoxContainer" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="DefenderTenantIdText" type="TextEdit" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel/DefenderTenantId"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+placeholder_text = "**********************************"
+
+[node name="DefenderTenantIdButton" type="Button" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel/DefenderTenantId"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_wjxgb")
+text = "Update Defender 
+Tenant ID
 "
 
 [node name="VTBox" type="HBoxContainer" parent="HBoxContainer/ScrollContainer/MarginContainer/SingleLookupPanel"]
