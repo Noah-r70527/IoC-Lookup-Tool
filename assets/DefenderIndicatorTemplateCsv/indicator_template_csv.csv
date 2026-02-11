@@ -1,4 +1,2 @@
 indicatorValue,indicatorType,action,severity,description,title,recommendedActions,expirationTime
 8.8.8.8,IpAddress,Allowed,Informational,test,test,test,2030-01-01T00:00:00Z
-1.1.1.1,IpAddress,Allowed,Informational,test,test,test,2030-01-01T00:00:00Z
-1.1.1.1,DomainName,Allowed,Informational,test,test,test,2030-01-01T00:00:00Z
