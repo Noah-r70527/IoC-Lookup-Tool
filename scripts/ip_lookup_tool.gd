@@ -45,20 +45,22 @@ func do_single_IP_Lookup():
 	if not (Helpers.is_valid_ipv4(ip) or Helpers.is_valid_ipv6(ip)):
 			Globals.emit_signal(
 				"output_display_update",
-				["[color=red]Improper IP entered:[/color] [color=white]%s[/color]\n\n" % [ip],
-				false]
+				"[color=red]Improper IP entered:[/color] [color=white]%s[/color]\n\n" % [ip],
+				false,
+				"Error"
 			)
 			return
 			
 	Globals.emit_signal(
 		"output_display_update",
 		"[color=green]Doing IP lookup on:[/color] [color=white]%s[/color]\n\n" % [ip], 
-		false
+		false,
+		"Informational"
 		)
 		
 	var result: Dictionary = await requester.make_abuseipdb_ip_request(ip)
 	var output_text = Helpers.parse_ip_lookup(result)
-	Globals.emit_signal("output_display_update", output_text, true)
+	Globals.emit_signal("output_display_update", output_text, true, "Informational")
 	if result.get("data"):
 		var temp = result.get("data")
 		var date_time = Time.get_datetime_dict_from_system(false)
@@ -97,7 +99,7 @@ func do_report_lookup():
 	
 	
 func do_multi_lookup():
-	var ip_list = %MultiIPText.text.split("\n")
+	var ip_list: Array = %MultiIPText.text.split("\n")
 	var write_to_csv: bool = ConfigHandler.get_config_value("LOG_IP_TO_CSV") == "true"
 	var min_score: float = float(ConfigHandler.get_config_value("MINABUSESCORE"))
 	var date_time = Time.get_datetime_dict_from_system(false)
@@ -109,7 +111,7 @@ func do_multi_lookup():
 			dir_access.make_dir(folder_string)
 	Globals.emit_signal(
 		"output_display_update",
-		"Starting multi-IP lookup on %s IPs...\n\n" % [len(ip_list)], false
+		"Starting multi-IP lookup on %s IPs...\n\n" % [len(ip_list)], false, "Informational"
 		)
 	Globals.emit_signal("toggle_progress_visibility")
 	var itters = 0
@@ -119,13 +121,15 @@ func do_multi_lookup():
 			Globals.emit_signal(
 				"output_display_update", 
 				"[color=red]Improper IP entered:[/color] [color=white]%s[/color]\n\n" % [ip],
-				true
+				true,
+				"Error"
 			)
 			continue
 		Globals.emit_signal(
 			"output_display_update",
 			"[color=green]Doing IP lookup on:[/color] [color=white]%s[/color]\n" % [ip],
-			true
+			true,
+			"Informational"
 		)
 		var result: Dictionary = await requester.make_abuseipdb_ip_request(ip)
 		
@@ -135,7 +139,7 @@ func do_multi_lookup():
 		var output_text = Helpers.parse_multi_ip_lookup(result)
 		itters += 1
 		Globals.emit_signal("progress_bar_update", "IP", itters, len(ip_list))
-		Globals.emit_signal("output_display_update", output_text + "\n", true)
+		Globals.emit_signal("output_display_update", output_text + "\n", true, "Informational")
 		if result.get("data"):
 			var temp = result.get("data")
 			var setup_data = {

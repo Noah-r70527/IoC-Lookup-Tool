@@ -21,6 +21,7 @@ config/icon="uid://dksnqbxt47wv7"
 ConfigHandler="*res://scripts/config_handler.gd"
 CsvHelper="*res://scripts/csv_helper.gd"
 Globals="*res://scripts/globals.gd"
+Logger="*res://scripts/logger.gd"
 
 [debug]
 

@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://fjkebtk14iah"]
+
+[ext_resource type="Script" uid="uid://crx7220c3jihy" path="res://scripts/indicator_attribute_severity.gd" id="1_qo0ag"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mmhl6"]
+bg_color = Color(0, 1, 0, 0.2)
+
+[node name="IndicatorAttributeDropdown" type="HBoxContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -305.0
+offset_top = -15.0
+offset_right = 305.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("1_qo0ag")
+attribute_options = Array[int]([0, 1, 2, 3])
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.75
+theme_override_styles/panel = SubResource("StyleBoxFlat_mmhl6")
+
+[node name="AttributeLabel" type="Label" parent="PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Indicator Value"
+horizontal_alignment = 1
+
+[node name="AttributeOptions" type="OptionButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1

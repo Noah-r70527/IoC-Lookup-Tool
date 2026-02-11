@@ -19,7 +19,8 @@ func handle_defang_ips():
 	Globals.emit_signal(
 		"output_display_update",
 		"Attempting to defang [color=green]%s[/color] IP addresses.\n\n" % [len(defang_ip_list)], 
-		false
+		false,
+		"Informational"
 	)
 	for line in defang_ip_list:
 		if Helpers.is_valid_ipv4(line):
@@ -27,7 +28,7 @@ func handle_defang_ips():
 			CsvHelper.write_csv_dict("%s/DefangedOutput/defanged_ips.csv" % dir_access.get_current_dir(), {"ip": temp})
 
 	Globals.emit_signal("output_display_update", 
-	"[color=green]Finshed[/color]\n\n Wrote output to: \n%s/DefangedOutput" % [dir_access.get_current_dir()], false
+	"[color=green]Finshed[/color]\n\n Wrote output to: \n%s/DefangedOutput" % [dir_access.get_current_dir()], false, "Informational"
 	)
 	
 	
@@ -38,7 +39,7 @@ func handle_defang_urls():
 		dir_access.make_dir("DefangedOutput")
 	Globals.emit_signal(
 		"output_display_update", 
-		["Attempting to defang [color=green]%s[/color] URLs.\n\n" % [len(defang_url_list)], false]
+		"Attempting to defang [color=green]%s[/color] URLs.\n\n" % [len(defang_url_list)], false, "Informational"
 		)
 	for line in defang_url_list:
 		var temp = Helpers.defang_url(line)
@@ -46,5 +47,5 @@ func handle_defang_urls():
 
 	Globals.emit_signal(
 		"output_display_update", 
-		["[color=green]Finshed[/color]\n\n Wrote output to: \n%s/DefangedOutput" % [dir_access.get_current_dir()], false]
+		"[color=green]Finshed[/color]\n\n Wrote output to: \n%s/DefangedOutput" % [dir_access.get_current_dir()], false, "Informational"
 		)

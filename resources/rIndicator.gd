@@ -2,7 +2,6 @@ extends Resource
 
 class_name rIndicator
 
-
 enum IndicatorType {
 	FileSha1,
 	FileSha256,
@@ -17,8 +16,6 @@ enum IndicatorAction {
 	Warn,
 	Block,
 	Audit,
-	Alert,
-	AlertAndBlock,
 	BlockAndRemediate,
 	Allowed
 }
@@ -46,10 +43,10 @@ func to_dict() -> Dictionary:
 	return {
 		"indicatorValue": indicatorValue,
 		"indicatorType": IndicatorType.keys()[indicatorType],
-		"indicatorAction": IndicatorAction.keys()[indicatorAction],
-		"indicatorSeverity": Severity.keys()[indicatorSeverity], 
-		"indicatorDescription": indicatorDescription,
-		"indicatorTitle": indicatorTitle,
-		"indicatorRecommendedActions": indicatorRecommendedActions,
-		"indicatorExpirationTime": indicatorExpirationTime
+		"action": IndicatorAction.keys()[indicatorAction],
+		"severity": Severity.keys()[indicatorSeverity], 
+		"description": indicatorDescription,
+		"title": indicatorTitle,
+		"recommendedActions": indicatorRecommendedActions,
+		"expirationTime": indicatorExpirationTime
 	}

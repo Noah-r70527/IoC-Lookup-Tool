@@ -1,6 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbairitj1xian"]
+[gd_scene load_steps=8 format=3 uid="uid://dbairitj1xian"]
 
-[ext_resource type="Script" uid="uid://o3atsqfoq3nu" path="res://scripts/hash_lookup_tool.gd" id="1_d2lvv"]
+[ext_resource type="Script" uid="uid://ixpym8vyjspf" path="res://scripts/defender_indicator_handler.gd" id="1_d2lvv"]
+[ext_resource type="PackedScene" uid="uid://bjaqc5est54yo" path="res://scenes/utilityScenes/IndicatorAttribute.tscn" id="2_tinkk"]
+[ext_resource type="PackedScene" uid="uid://xecu1de6u8h6" path="res://scenes/utilityScenes/IndicatorAttributeIndicatorType.tscn" id="3_n0glc"]
+[ext_resource type="PackedScene" uid="uid://de4xf8bwbnhwj" path="res://scenes/utilityScenes/IndicatorAttributeIndicatorAction.tscn" id="4_n0glc"]
+[ext_resource type="PackedScene" uid="uid://fjkebtk14iah" path="res://scenes/utilityScenes/IndicatorAttributeSeverity.tscn" id="5_ql73t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jehqg"]
 border_width_left = 100
@@ -13,16 +17,15 @@ border_blend = true
 HBoxContainer/constants/separation = 5
 VBoxContainer/styles/Style = SubResource("StyleBoxFlat_jehqg")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eaxej"]
-bg_color = Color(0, 1, 0, 0.2)
-
-[node name="AnalyticsRuleBuilderTool" type="Control"]
+[node name="DefenderHandlerTool" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_d2lvv")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -34,131 +37,113 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.8
+theme_override_constants/separation = 4
+alignment = 1
 
-[node name="SingleLookupPanel" type="VBoxContainer" parent="HBoxContainer"]
+[node name="IndicatorEntryBox" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.6
 theme = SubResource("Theme_8d1pq")
-theme_override_constants/separation = 60
+theme_override_constants/separation = 15
 
-[node name="DisplayName" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
-custom_minimum_size = Vector2(0, 40)
+[node name="Label" type="Label" parent="HBoxContainer/IndicatorEntryBox"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 20
-
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/SingleLookupPanel/DisplayName"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_eaxej")
-
-[node name="DisplayNameLabel" type="Label" parent="HBoxContainer/SingleLookupPanel/DisplayName/PanelContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Display Name"
+text = "Single Indicator Add"
 horizontal_alignment = 1
 
-[node name="DisplayNameText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/DisplayName"]
+[node name="IndicatorValue" parent="HBoxContainer/IndicatorEntryBox" instance=ExtResource("2_tinkk")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Rule Name"
+attribute_name = "Indicator Value"
+attribute_hint_text = "Value of the indicator"
 
-[node name="DisplayName2" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
-custom_minimum_size = Vector2(0, 40)
+[node name="IndicatorType" parent="HBoxContainer/IndicatorEntryBox" instance=ExtResource("3_n0glc")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+attribute_name = "Indicator Type"
+
+[node name="IndicatorAction" parent="HBoxContainer/IndicatorEntryBox" instance=ExtResource("4_n0glc")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+attribute_name = "Indicator Action"
+
+[node name="IndicatorSeverity" parent="HBoxContainer/IndicatorEntryBox" instance=ExtResource("5_ql73t")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+attribute_name = "Indicator Severity"
+
+[node name="IndicatorDescription" parent="HBoxContainer/IndicatorEntryBox" instance=ExtResource("2_tinkk")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+attribute_name = "Indicator Description"
+attribute_hint_text = "Description of the indicator for Defender."
+
+[node name="IndicatorTitle" parent="HBoxContainer/IndicatorEntryBox" instance=ExtResource("2_tinkk")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+attribute_name = "Indicator Title"
+attribute_hint_text = "\"Malicious IP Address Detected\""
+
+[node name="IndicatorRecommendedAction" parent="HBoxContainer/IndicatorEntryBox" instance=ExtResource("2_tinkk")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+attribute_name = "Incident Recommended Action"
+attribute_hint_text = "\"Block and get rid of this.\""
+
+[node name="IndicatorExpirationTime" parent="HBoxContainer/IndicatorEntryBox" instance=ExtResource("2_tinkk")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+attribute_name = "Indicator Expiration Time"
+attribute_hint_text = "2030-06-30T00:00:00Z"
+
+[node name="AddIndicatorButton" type="Button" parent="HBoxContainer/IndicatorEntryBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 30)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+text = "Add Indicator"
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FileSelector" type="VBoxContainer" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 20
+alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/SingleLookupPanel/DisplayName2"]
-custom_minimum_size = Vector2(300, 0)
+[node name="Label" type="Label" parent="HBoxContainer/PanelContainer/FileSelector"]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_eaxej")
-
-[node name="DisplayNameLabel" type="Label" parent="HBoxContainer/SingleLookupPanel/DisplayName2/PanelContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Display Name"
+text = "Multi Indicator Add"
 horizontal_alignment = 1
 
-[node name="DisplayNameText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/DisplayName2"]
-custom_minimum_size = Vector2(300, 0)
+[node name="FilePathText" type="TextEdit" parent="HBoxContainer/PanelContainer/FileSelector"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Rule Name"
+placeholder_text = "File Path"
+wrap_mode = 1
 
-[node name="DisplayName3" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
-custom_minimum_size = Vector2(0, 40)
+[node name="FileDialogButton" type="Button" parent="HBoxContainer/PanelContainer/FileSelector"]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 20
+text = "Open File"
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/SingleLookupPanel/DisplayName3"]
-custom_minimum_size = Vector2(300, 0)
+[node name="AddIndicators" type="Button" parent="HBoxContainer/PanelContainer/FileSelector"]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_eaxej")
+disabled = true
+text = "Add Indicators from File"
 
-[node name="DisplayNameLabel" type="Label" parent="HBoxContainer/SingleLookupPanel/DisplayName3/PanelContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Display Name"
-horizontal_alignment = 1
-
-[node name="DisplayNameText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/DisplayName3"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Rule Name"
-
-[node name="DisplayName4" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 20
-
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/SingleLookupPanel/DisplayName4"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_eaxej")
-
-[node name="DisplayNameLabel" type="Label" parent="HBoxContainer/SingleLookupPanel/DisplayName4/PanelContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Display Name"
-horizontal_alignment = 1
-
-[node name="DisplayNameText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/DisplayName4"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Rule Name"
-
-[node name="MultiHashPanel" type="VBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 6
-
-[node name="Label" type="Label" parent="HBoxContainer/SingleLookupPanel/MultiHashPanel"]
-layout_mode = 2
-size_flags_vertical = 0
-size_flags_stretch_ratio = 0.0
-text = "KQL Query"
-horizontal_alignment = 1
-
-[node name="MultiHashText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/MultiHashPanel"]
-custom_minimum_size = Vector2(0, 400)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MultiHashPanel" type="VBoxContainer" parent="HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
+[node name="CsvDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
