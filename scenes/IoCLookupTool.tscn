@@ -93,7 +93,7 @@ layout_mode = 2
 tool_name = "Defang Tool"
 tool_path = "res://scenes/tools/DefangTool.tscn"
 
-[node name="ToolSelector" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
+[node name="DefenderIndicatorTool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
 layout_mode = 2
 tool_name = "Defender Indicator Tool"
 tool_path = "res://scenes/tools/DefenderIndicatorTool.tscn"
@@ -110,6 +110,7 @@ theme_override_constants/separation = 20
 
 [node name="CurrentToolLabel" type="Label" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Current Tool:
 IP Lookup Tool"
@@ -117,19 +118,20 @@ horizontal_alignment = 1
 
 [node name="SettingsButton" type="Button" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Settings"
 
 [node name="Quit Button" type="Button" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Quit Application"
 
 [node name="test" type="Button" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 30)
+visible = false
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Test"
 

@@ -4,7 +4,7 @@ signal output_display_update(text: String, append: bool, log_level: String)
 signal progress_bar_update(lookup_type: String, current_number: int, max_number: int)
 signal toggle_progress_visibility
 
-var version: String = "v1.5"
+var version: String = "v%s" % ProjectSettings.get_setting("application/config/version")
 
 var SCENE_TO_TOOL_NAME = {
 	"res://scenes/tools/IPLookupTool.tscn": "IP Lookup Tool",

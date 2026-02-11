@@ -121,8 +121,11 @@ func do_multi_url_lookup():
 		var result: Dictionary = await requester.make_virustotal_request(url, "Domain")
 		itters += 1
 		Globals.emit_signal("progress_bar_update", "IP", itters, len(url_list))
+		
 		if result.get("error"):
+			Globals.output_display_update.emit("Error occurred while doing multi-lookup: %s" % result.get("error"), false, "Error")
 			break
+			
 		var output = Helpers.parse_multi_url_lookup(result)
 		Globals.emit_signal("output_display_update", output[0], true)
 		var setup_data = {

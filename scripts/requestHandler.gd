@@ -166,6 +166,7 @@ func make_abuseipdb_report_request(ip_address: String) -> Dictionary:
 	]
 
 	var wrapped: Dictionary = await _start_request(url, headers)
+	
 	if wrapped.has("error"):
 		return wrapped
 
@@ -387,3 +388,10 @@ func create_defender_indicator(defender_indicator: rIndicator) -> Dictionary:
 func _on_request_completed(_result: int, _response_code: int, 
 _headers: PackedStringArray, _body: PackedByteArray) -> void:
 	is_requesting = false
+
+
+func download_template_csv(link, path):
+	requestHandler.set_download_file(path)
+	var request = requestHandler.request(link)
+	if request != OK:
+		push_error("Http request error")

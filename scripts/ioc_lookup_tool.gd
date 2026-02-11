@@ -7,7 +7,7 @@ var current_tool: String = "IP Lookup Tool"
 
 
 func _ready():
-	
+	print(Globals.version)
 	Globals.output_display_update.connect(handle_output_text)
 	Helpers._init_create_dirs()
 

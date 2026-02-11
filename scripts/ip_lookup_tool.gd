@@ -21,14 +21,15 @@ func _ready():
 	report_button.pressed.connect(do_report_lookup)
 	multi_button.pressed.connect(do_multi_lookup)
 	option_button.item_selected.connect(swap_selected_tool)
-	if !ConfigHandler.get_config_value("ABUSE_IP_API_KEY") or ConfigHandler.get_config_value("ABUSE_IP_API_KEY") == "...":
-		for button in [single_button, multi_button, network_button, report_button]:
-			button.disabled = true
-	
 	single_text.text_changed.connect(text_changed_handler.bind(single_text))
 	multi_text.text_changed.connect(text_changed_handler.bind(multi_text))
 	report_text.text_changed.connect(text_changed_handler.bind(report_text))
 	network_text.text_changed.connect(text_changed_handler.bind(network_text))
+	if !ConfigHandler.get_config_value("ABUSE_IP_API_KEY") or ConfigHandler.get_config_value("ABUSE_IP_API_KEY") == "...":
+		for button in [single_button, multi_button, network_button, report_button]:
+			button.disabled = true
+	
+
 
 func get_tool_list():
 	var tool_list = ConfigHandler.get_config_value("TOOLS").split(",")
@@ -134,6 +135,7 @@ func do_multi_lookup():
 		var result: Dictionary = await requester.make_abuseipdb_ip_request(ip)
 		
 		if result.get("error"):
+			Globals.output_display_update.emit("Error occurred while doing multi-lookup: %s" % result.get("error"), false, "Error")
 			break
 			
 		var output_text = Helpers.parse_multi_ip_lookup(result)
@@ -161,7 +163,7 @@ func do_multi_lookup():
 				",", # delimiter
 				true # append to existing file?
 				)
-		await get_tree().create_timer(.5).timeout
+		await get_tree().create_timer(1).timeout
 	Globals.emit_signal("toggle_progress_visibility")
 
 
