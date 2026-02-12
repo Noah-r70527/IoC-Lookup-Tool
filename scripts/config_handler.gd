@@ -15,7 +15,10 @@ const DEFAULT_CONFIG_ENTRIES = {
 	"TOOLS": "Sentinel,Defender,Datadog,Other",
 	"HIDDENTOOLS": "",
 	"MINABUSESCORE": "0",
-	"MINREPORTS": "0"
+	"MINREPORTS": "0",
+	"DEFENDER_CLIENT_ID": "...",
+	"DEFENDER_CLIENT_SECRET": "...",
+	"DEFENDER_TENANT_ID": "..."
 }
 
 func _ready() -> void:

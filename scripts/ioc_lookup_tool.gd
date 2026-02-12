@@ -7,7 +7,7 @@ var current_tool: String = "IP Lookup Tool"
 
 
 func _ready():
-	
+	print(Globals.version)
 	Globals.output_display_update.connect(handle_output_text)
 	Helpers._init_create_dirs()
 
@@ -22,12 +22,20 @@ func _ready():
 	%test.pressed.connect(test_button)
 	for node in %ToolVbox.get_children():
 		node.switch_tool.connect(handle_swap_tool)
+	await requester.init_defender_token()
+	if requester.defender_token != "Unable to get token.":
+		Globals.emit_signal("output_display_update", 
+		"\n\n[color=cyan]Defender Token Aquired.[/color]",
+		true,
+		"Informational"
+		)
 		
 	var version: Dictionary = await requester.check_release_version()
 	if version.has("version") and version.get("version") != Globals.version:
 		Globals.emit_signal("output_display_update", 
 		"\n\n[color=red]Updated version available:[/color] [url]https://github.com/Noah-r70527/IoC-Lookup-Tool/releases/latest[/url]",
-		true
+		true,
+		"Informational"
 		)
 	
 func handle_swap_tool(tool_scene_path):
@@ -73,7 +81,7 @@ func handle_updated_config(config_name):
 		%OutputDisplay.append_text("[color=red]Failed to sync keys after updating config[/color]")
 	
 
-func handle_output_text(text_in, append):
+func handle_output_text(text_in, append, _loglevel):
 	if !append:
 		%OutputDisplay.clear()
 	%OutputDisplay.append_text(text_in)
@@ -90,4 +98,4 @@ func quit_program():
 	get_tree().quit()
 	
 func test_button():
-	requester.check_release_version()
+	pass

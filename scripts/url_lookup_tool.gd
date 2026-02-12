@@ -34,18 +34,20 @@ func do_single_url_Lookup():
 		Globals.emit_signal(
 			"output_display_update", 
 			"[color=red]Invalid URL Entered:[/color] [color=white]%s[/color]\n\n" % [url], 
-			false
+			false,
+			"Error"
 			)
 		return 
 		
 	Globals.emit_signal(
 		"output_display_update", 
 		"[color=green]Doing URL lookup on:[/color] [color=white]%s[/color]\n\n" % [url], 
-		false
+		false,
+		"Informational"
 		)
 	var result: Dictionary = await requester.make_virustotal_request(url, "Domain")
 	var output = Helpers.parse_multi_url_lookup(result)
-	Globals.emit_signal("output_display_update", output[0], true)
+	Globals.emit_signal("output_display_update", output[0], true, "Informational")
 	var date_time = Time.get_datetime_dict_from_system(false)
 	var folder_string = "%s_%s_%s" % [date_time.year, date_time.month, date_time.day]
 	if ConfigHandler.get_config_value("LOG_URL_TO_CSV") == "true":
@@ -66,13 +68,14 @@ func do_dns_lookup():
 	var domain = dns_lookup_text.text
 	Globals.emit_signal(
 		"output_display_update", 
-		"[color=green]Doing DNS lookup on:[/color] [color=white]%s[/color]\n\n" % [domain], false)
+		"[color=green]Doing DNS lookup on:[/color] [color=white]%s[/color]\n\n" % [domain], false, "Informational")
 	var result_ipv4 = IP.resolve_hostname(domain, IP.TYPE_IPV4)
 	var result_ipv6 = IP.resolve_hostname(domain, IP.TYPE_IPV6)
 	Globals.emit_signal(
 		"output_display_update", 
 		"[color=green]IPv4 Result:[/color] %s\n[color=green]IPv6 Result:[/color] %s" % [result_ipv4, result_ipv6], 
-		true
+		true,
+		"Informational"
 		)
 
 	
@@ -85,7 +88,8 @@ func do_multi_url_lookup():
 		"Starting multi-URL lookup on %s domains...\n
 		[color=red][b]Because of Virus Total's Rate-Limiting rules, only one request will go through every 15 seconds.[/b][/color]
 		\n\n" % [len(url_list)], 
-		false
+		false,
+		"Informational"
 		)
 	var date_time = Time.get_datetime_dict_from_system(false)
 	var folder_string = "%s_%s_%s" % [date_time.year, date_time.month, date_time.day]
@@ -103,20 +107,25 @@ func do_multi_url_lookup():
 			Globals.emit_signal(
 				"output_display_update", 
 				"[color=red]Invalid URL Entered:[/color] [color=white]%s[/color]\n\n" % [url],
-				true
+				true,
+				"Error"
 				)
 			continue
 			 
 		Globals.emit_signal(
 			"output_display_update", 
 			"[color=green]Doing URL lookup on:[/color] [color=white]%s[/color]\n" % [url],
-			true
+			true,
+			"Informational"
 			)
 		var result: Dictionary = await requester.make_virustotal_request(url, "Domain")
 		itters += 1
 		Globals.emit_signal("progress_bar_update", "IP", itters, len(url_list))
+		
 		if result.get("error"):
+			Globals.output_display_update.emit("Error occurred while doing multi-lookup: %s" % result.get("error"), false, "Error")
 			break
+			
 		var output = Helpers.parse_multi_url_lookup(result)
 		Globals.emit_signal("output_display_update", output[0], true)
 		var setup_data = {

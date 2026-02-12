@@ -12,7 +12,7 @@ extends Control
 @onready var selected_option: String
 @onready var requester = get_parent().get_node("%HTTPRequestHandler")
 
-var _pending_ip := false
+var _pending_ip: bool = false
 
 func _ready(): 
 	get_tool_list()
@@ -21,14 +21,15 @@ func _ready():
 	report_button.pressed.connect(do_report_lookup)
 	multi_button.pressed.connect(do_multi_lookup)
 	option_button.item_selected.connect(swap_selected_tool)
-	if !ConfigHandler.get_config_value("ABUSE_IP_API_KEY") or ConfigHandler.get_config_value("ABUSE_IP_API_KEY") == "...":
-		for button in [single_button, multi_button, network_button, report_button]:
-			button.disabled = true
-	
 	single_text.text_changed.connect(text_changed_handler.bind(single_text))
 	multi_text.text_changed.connect(text_changed_handler.bind(multi_text))
 	report_text.text_changed.connect(text_changed_handler.bind(report_text))
 	network_text.text_changed.connect(text_changed_handler.bind(network_text))
+	if !ConfigHandler.get_config_value("ABUSE_IP_API_KEY") or ConfigHandler.get_config_value("ABUSE_IP_API_KEY") == "...":
+		for button in [single_button, multi_button, network_button, report_button]:
+			button.disabled = true
+	
+
 
 func get_tool_list():
 	var tool_list = ConfigHandler.get_config_value("TOOLS").split(",")
@@ -45,20 +46,22 @@ func do_single_IP_Lookup():
 	if not (Helpers.is_valid_ipv4(ip) or Helpers.is_valid_ipv6(ip)):
 			Globals.emit_signal(
 				"output_display_update",
-				["[color=red]Improper IP entered:[/color] [color=white]%s[/color]\n\n" % [ip],
-				false]
+				"[color=red]Improper IP entered:[/color] [color=white]%s[/color]\n\n" % [ip],
+				false,
+				"Error"
 			)
 			return
 			
 	Globals.emit_signal(
 		"output_display_update",
 		"[color=green]Doing IP lookup on:[/color] [color=white]%s[/color]\n\n" % [ip], 
-		false
+		false,
+		"Informational"
 		)
 		
 	var result: Dictionary = await requester.make_abuseipdb_ip_request(ip)
 	var output_text = Helpers.parse_ip_lookup(result)
-	Globals.emit_signal("output_display_update", output_text, true)
+	Globals.emit_signal("output_display_update", output_text, true, "Informational")
 	if result.get("data"):
 		var temp = result.get("data")
 		var date_time = Time.get_datetime_dict_from_system(false)
@@ -97,7 +100,7 @@ func do_report_lookup():
 	
 	
 func do_multi_lookup():
-	var ip_list = %MultiIPText.text.split("\n")
+	var ip_list: Array = %MultiIPText.text.split("\n")
 	var write_to_csv: bool = ConfigHandler.get_config_value("LOG_IP_TO_CSV") == "true"
 	var min_score: float = float(ConfigHandler.get_config_value("MINABUSESCORE"))
 	var date_time = Time.get_datetime_dict_from_system(false)
@@ -109,7 +112,7 @@ func do_multi_lookup():
 			dir_access.make_dir(folder_string)
 	Globals.emit_signal(
 		"output_display_update",
-		"Starting multi-IP lookup on %s IPs...\n\n" % [len(ip_list)], false
+		"Starting multi-IP lookup on %s IPs...\n\n" % [len(ip_list)], false, "Informational"
 		)
 	Globals.emit_signal("toggle_progress_visibility")
 	var itters = 0
@@ -119,23 +122,26 @@ func do_multi_lookup():
 			Globals.emit_signal(
 				"output_display_update", 
 				"[color=red]Improper IP entered:[/color] [color=white]%s[/color]\n\n" % [ip],
-				true
+				true,
+				"Error"
 			)
 			continue
 		Globals.emit_signal(
 			"output_display_update",
 			"[color=green]Doing IP lookup on:[/color] [color=white]%s[/color]\n" % [ip],
-			true
+			true,
+			"Informational"
 		)
 		var result: Dictionary = await requester.make_abuseipdb_ip_request(ip)
 		
 		if result.get("error"):
+			Globals.output_display_update.emit("Error occurred while doing multi-lookup: %s" % result.get("error"), false, "Error")
 			break
 			
 		var output_text = Helpers.parse_multi_ip_lookup(result)
 		itters += 1
 		Globals.emit_signal("progress_bar_update", "IP", itters, len(ip_list))
-		Globals.emit_signal("output_display_update", output_text + "\n", true)
+		Globals.emit_signal("output_display_update", output_text + "\n", true, "Informational")
 		if result.get("data"):
 			var temp = result.get("data")
 			var setup_data = {
@@ -157,7 +163,7 @@ func do_multi_lookup():
 				",", # delimiter
 				true # append to existing file?
 				)
-		await get_tree().create_timer(.5).timeout
+		await get_tree().create_timer(1).timeout
 	Globals.emit_signal("toggle_progress_visibility")
 
 

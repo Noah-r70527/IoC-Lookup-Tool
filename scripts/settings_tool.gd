@@ -6,6 +6,10 @@ extends Control
 @onready var url_log = ConfigHandler.get_config_value("LOG_URL_TO_CSV")
 @onready var auto_rearm = ConfigHandler.get_config_value("AUTO_REARM")
 @onready var config_name = ConfigHandler.get_config_value("NAME")
+@onready var defender_client_id = ConfigHandler.get_config_value("DEFENDER_CLIENT_ID")
+@onready var defender_client_secret = ConfigHandler.get_config_value("DEFENDER_CLIENT_SECRET")
+@onready var defender_tenant_id = ConfigHandler.get_config_value("DEFENDER_TENANT_ID")
+
 
 signal updated_config(setting_changed)
 signal output_text(text)
@@ -13,6 +17,9 @@ signal output_text(text)
 func _ready():
 	%AbuseIPDBAPIKey.text = ab_ip_key
 	%VTText.text = vt_key
+	%DefenderClientIdText.text = defender_client_id
+	%DefenderClientSecretText.text = defender_client_secret
+	%DefenderTenantIdText.text = defender_tenant_id
 	%NameText.text = config_name if config_name else ""
 	%IPCsvCheck.button_pressed = true if ip_log == "true" else false
 	%URLCsvCheck.button_pressed = true if url_log == "true" else false
@@ -21,6 +28,9 @@ func _ready():
 	%URLCsvCheck.button_up.connect(toggle_url_log)
 	%AutoDefangButton.button_up.connect(toggle_auto_rearm)
 	%AbuseIPDBButton.pressed.connect(update_api_key.bind("ab"))
+	%DefenderClientIdButton.pressed.connect(update_api_key.bind("dfci"))
+	%DefenderClientSecretButton.pressed.connect(update_api_key.bind("dfcs"))
+	%DefenderTenantIdButton.pressed.connect(update_api_key.bind("dfti"))
 	%VTButton.pressed.connect(update_api_key.bind("vt"))
 	%"Name Button".pressed.connect(update_name)
 	%"Add Tool".pressed.connect(add_tool)
@@ -30,6 +40,7 @@ func _ready():
 	%MinAbuseScoreSlider.value_changed.connect(on_slider_value_change)
 	%MinAbuseScoreLabel.text = "Minimum Abuse Confidence Score For Logging: %s" % ConfigHandler.get_config_value("MINABUSESCORE") 
 	%MinAbuseScoreSlider.value = float(ConfigHandler.get_config_value("MINABUSESCORE"))
+	
 	
 func update_name():
 	ConfigHandler.update_config_setting("NAME", %NameText.text)
@@ -44,6 +55,15 @@ func update_api_key(system):
 	elif system == "vt":
 		system_string = "VT_API_KEY"
 		key = %VTText.text
+	elif system == "dfci":
+		system_string = "DEFENDER_CLIENT_ID"
+		key = %DefenderClientIdText.text
+	elif system == "dfcs":
+		system_string = "DEFENDER_CLIENT_SECRET"
+		key = %DefenderClientSecretText.text
+	elif system == "dfti":
+		system_string = "DEFENDER_TENANT_ID"
+		key = %DefenderTenantIdText.text
 
 	ConfigHandler.update_config_setting(system_string, key)
 	emit_signal("updated_config", system_string)

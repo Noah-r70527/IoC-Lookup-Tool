@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjaqc5est54yo"]
+
+[ext_resource type="Script" uid="uid://83e6077sp4u1" path="res://scripts/indicator_attribute.gd" id="1_auoka"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mmhl6"]
+bg_color = Color(0, 1, 0, 0.2)
+
+[node name="IndicatorAttribute" type="HBoxContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -305.0
+offset_top = -15.0
+offset_right = 305.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("1_auoka")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.75
+theme_override_styles/panel = SubResource("StyleBoxFlat_mmhl6")
+
+[node name="AttributeLabel" type="Label" parent="PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Indicator Value"
+horizontal_alignment = 1
+
+[node name="AttributeText" type="TextEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "8.8.8.8"

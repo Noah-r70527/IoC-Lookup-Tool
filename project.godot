@@ -10,17 +10,18 @@ config_version=5
 
 [application]
 
-config/name="IoC Lookup Tool"
-config/version="1.5"
+config/name="NDRTech Security Tool"
+config/version="1.6"
 run/main_scene="uid://dy77c8ent20lg"
 config/features=PackedStringArray("4.4", "Mobile")
-config/icon="uid://dk8nmpmuld2ja"
+config/icon="uid://dksnqbxt47wv7"
 
 [autoload]
 
 ConfigHandler="*res://scripts/config_handler.gd"
 CsvHelper="*res://scripts/csv_helper.gd"
 Globals="*res://scripts/globals.gd"
+Logger="*res://scripts/logger.gd"
 
 [debug]
 
@@ -28,8 +29,8 @@ file_logging/enable_file_logging=true
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1600
+window/size/viewport_height=900
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/handheld/orientation=6
