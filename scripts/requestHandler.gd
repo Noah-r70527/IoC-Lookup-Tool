@@ -391,7 +391,12 @@ _headers: PackedStringArray, _body: PackedByteArray) -> void:
 
 
 func download_template_csv(link, path):
+	if is_requesting:
+		return
+		
+	is_requesting = true
 	requestHandler.set_download_file(path)
-	var request = requestHandler.request(link)
+	var request = await requestHandler.request(link)
 	if request != OK:
 		push_error("Http request error")
+	is_requesting = false

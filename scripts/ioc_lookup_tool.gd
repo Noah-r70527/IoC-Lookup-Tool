@@ -98,14 +98,4 @@ func quit_program():
 	get_tree().quit()
 	
 func test_button():
-	var template_indicator: rIndicator = rIndicator.new()
-	template_indicator.indicatorValue = '217.29.135.22'
-	template_indicator.indicatorType = rIndicator.IndicatorType.IpAddress
-	template_indicator.indicatorAction = rIndicator.IndicatorAction.Warn
-	template_indicator.indicatorSeverity = rIndicator.Severity.Medium
-	template_indicator.indicatorTitle = "Test"
-	template_indicator.indicatorDescription = "Testing tool"
-	template_indicator.indicatorRecommendedActions = "None"
-	
-	var result = await requester.create_defender_indicator(template_indicator)
-	print(result)
+	pass

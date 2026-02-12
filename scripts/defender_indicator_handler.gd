@@ -22,6 +22,7 @@ func _ready() -> void:
 	dialog_handler.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	dialog_handler.filters = ["*.csv ; CSV Files"]
 	dialog_handler.access = FileDialog.ACCESS_FILESYSTEM
+	%DownloadTemplate.pressed.connect(download_csv_template)
 	
 func open_file_dialog() -> void:
 	dialog_handler.popup_centered(Vector2i(1000, 500))
@@ -233,3 +234,13 @@ func setup_indicator(indicator_values: Dictionary) -> rIndicator:
 	indicator.indicatorExpirationTime = indicator_values["expirationTime"]
 
 	return indicator
+
+
+func download_csv_template() -> void:
+	var url: String = "https://raw.githubusercontent.com/Noah-r70527/IoC-Lookup-Tool/test/assets/DefenderIndicatorTemplateCsv/indicator_template_csv.csv"
+	var path: String = "template.csv"
+	await requester.download_template_csv(url, path)
+	if FileAccess.file_exists(path):
+		Globals.output_display_update.emit("Successfully downloaded the template.", false, "Informational")
+	else: 
+		Globals.output_display_update.emit("Failed to download the template.", false, "Error")

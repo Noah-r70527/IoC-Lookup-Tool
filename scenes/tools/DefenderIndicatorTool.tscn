@@ -145,5 +145,10 @@ layout_mode = 2
 disabled = true
 text = "Add Indicators from File"
 
+[node name="DownloadTemplate" type="Button" parent="HBoxContainer/PanelContainer/FileSelector"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Download Indicator Csv Template"
+
 [node name="CsvDialog" type="FileDialog" parent="."]
 unique_name_in_owner = true

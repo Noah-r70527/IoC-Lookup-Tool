@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://pkcd6acduy14"
+
+[deps]
+
+files=["res://assets/DefenderIndicatorTemplateCsv/defender_test_indicators.indicatorType.translation", "res://assets/DefenderIndicatorTemplateCsv/defender_test_indicators.action.translation", "res://assets/DefenderIndicatorTemplateCsv/defender_test_indicators.severity.translation", "res://assets/DefenderIndicatorTemplateCsv/defender_test_indicators.description.translation", "res://assets/DefenderIndicatorTemplateCsv/defender_test_indicators.title.translation", "res://assets/DefenderIndicatorTemplateCsv/defender_test_indicators.recommendedActions.translation", "res://assets/DefenderIndicatorTemplateCsv/defender_test_indicators.expirationTime.translation"]
+
+source_file="res://assets/DefenderIndicatorTemplateCsv/defender_test_indicators.csv"
+dest_files=["res://assets/DefenderIndicatorTemplateCsv/defender_test_indicators.indicatorType.translation", "res://assets/DefenderIndicatorTemplateCsv/defender_test_indicators.action.translation", "res://assets/DefenderIndicatorTemplateCsv/defender_test_indicators.severity.translation", "res://assets/DefenderIndicatorTemplateCsv/defender_test_indicators.description.translation", "res://assets/DefenderIndicatorTemplateCsv/defender_test_indicators.title.translation", "res://assets/DefenderIndicatorTemplateCsv/defender_test_indicators.recommendedActions.translation", "res://assets/DefenderIndicatorTemplateCsv/defender_test_indicators.expirationTime.translation"]
+
+[params]
+
+compress=true
+delimiter=0
