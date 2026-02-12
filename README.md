@@ -1,11 +1,13 @@
-# IP Lookup Tool
+# NDRTech Security Tool
 
-A lightweight IP and URL investigation tool built entirely with the Godot Engine using GDScript. This project allows cybersecurity professionals, system administrators, and curious users to quickly query IP addresses and domain names against AbuseIPDB and VirusTotal.
+A lightweight investigation tool built entirely with the Godot Engine using GDScript. This project allows cybersecurity professionals, system administrators, and curious users to quickly query IP addresses and domain names against AbuseIPDB and VirusTotal. It also enables the addition of IoCs to Defender XDR custom indicators.
 
 Features
 - IP Address Lookup via AbuseIPDB
 
 - Domain & URL Lookup via VirusTotal
+
+- IoC upload to Defender for Endpoint Custom Indicators
 
 - Simple, GUI-based interface — no command-line flags to remember
 
