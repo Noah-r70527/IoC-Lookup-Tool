@@ -189,3 +189,5 @@ static func _init_create_dirs():
 		dir_access.make_dir("IPLookups")
 	if not dir_access.dir_exists("URLLookups"):
 		dir_access.make_dir("URLLookups")
+	if not dir_access.dir_exists("cached"):
+		dir_access.make_dir("cached")
