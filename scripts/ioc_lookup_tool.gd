@@ -7,7 +7,6 @@ var current_tool: String = "IP Lookup Tool"
 
 
 func _ready():
-	print(Globals.version)
 	Globals.output_display_update.connect(handle_output_text)
 	Helpers._init_create_dirs()
 
@@ -98,4 +97,6 @@ func quit_program():
 	get_tree().quit()
 	
 func test_button():
-	pass
+	var test = {"indicatorCreation":"2026-02-17","indicatorType":"IpAddress","indicatorValue":"2.2.1.1"}
+	Globals.add_ioc(test, true)
+	Globals.remove_ioc("2.2.1.1", true)

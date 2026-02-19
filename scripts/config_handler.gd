@@ -18,7 +18,9 @@ const DEFAULT_CONFIG_ENTRIES = {
 	"MINREPORTS": "0",
 	"DEFENDER_CLIENT_ID": "...",
 	"DEFENDER_CLIENT_SECRET": "...",
-	"DEFENDER_TENANT_ID": "..."
+	"DEFENDER_TENANT_ID": "...",
+	"CACHE_TTL_DAYS": "7",
+	"CACHE_MAX_SIZE": "1000"
 }
 
 func _ready() -> void:

@@ -38,8 +38,16 @@ func _ready():
 	%"List Tools".pressed.connect(list_tools)
 	%MinAbuseScoreSlider.drag_ended.connect(on_drag_abuse_end)
 	%MinAbuseScoreSlider.value_changed.connect(on_slider_value_change)
-	%MinAbuseScoreLabel.text = "Minimum Abuse Confidence Score For Logging: %s" % ConfigHandler.get_config_value("MINABUSESCORE") 
+	%MinAbuseScoreLabel.text = "Minimum Abuse Confidence Score For Logging: %s" % ConfigHandler.get_config_value("MINABUSESCORE")
 	%MinAbuseScoreSlider.value = float(ConfigHandler.get_config_value("MINABUSESCORE"))
+	%CacheDaysSlider.drag_ended.connect(on_drag_cache_days_end)
+	%CacheDaysSlider.value_changed.connect(on_cache_days_slider_change)
+	%CacheDaysText.text = "Cache TTL (Days): %s" % ConfigHandler.get_config_value("CACHE_TTL_DAYS")
+	%CacheDaysSlider.value = float(ConfigHandler.get_config_value("CACHE_TTL_DAYS"))
+	%CacheMaxSizeSlider.drag_ended.connect(on_drag_cache_max_end)
+	%CacheMaxSizeSlider.value_changed.connect(on_cache_max_slider_change)
+	%CacheMaxSizeLabel.text = "Maximum Cache Size: %s" % ConfigHandler.get_config_value("CACHE_MAX_SIZE")
+	%CacheMaxSizeSlider.value = float(ConfigHandler.get_config_value("CACHE_MAX_SIZE"))
 	
 	
 func update_name():
@@ -84,6 +92,8 @@ func toggle_auto_rearm():
 func add_tool():
 	var current_tools: PackedStringArray = ConfigHandler.get_config_value("TOOLS").split(",")
 	var tool_text: String = %ToolText.text
+	if tool_text.is_empty():
+		return
 	var unwanted_chars = ["!", "@", "#", "$", "%", ",", "."]
 	for letter in unwanted_chars:
 		tool_text.replace(letter, "")
@@ -105,7 +115,7 @@ func remove_tool():
 	
 	
 func list_tools():
-	emit_signal("output_text", "\n".join(ConfigHandler.get_config_value("TOOLS").split(",")))
+	Globals.output_display_update.emit("\n".join(ConfigHandler.get_config_value("TOOLS").split(",")), false, "Informational")
 	
 	
 func on_slider_value_change(_updated_value):
@@ -115,3 +125,15 @@ func on_slider_value_change(_updated_value):
 func on_drag_abuse_end(_updated_value):
 	ConfigHandler.update_config_setting("MINABUSESCORE", str(%MinAbuseScoreSlider.value))
 	print(ConfigHandler.get_config_value("MINABUSESCORE"))
+
+func on_cache_days_slider_change(_updated_value):
+	%CacheDaysText.text = "Cache TTL (Days): %s" % int(%CacheDaysSlider.value)
+
+func on_drag_cache_days_end(_updated_value):
+	ConfigHandler.update_config_setting("CACHE_TTL_DAYS", str(int(%CacheDaysSlider.value)))
+
+func on_cache_max_slider_change(_updated_value):
+	%CacheMaxSizeLabel.text = "Maximum Cache Size: %s" % int(%CacheMaxSizeSlider.value)
+
+func on_drag_cache_max_end(_updated_value):
+	ConfigHandler.update_config_setting("CACHE_MAX_SIZE", str(int(%CacheMaxSizeSlider.value)))
