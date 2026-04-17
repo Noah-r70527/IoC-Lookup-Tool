@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://db6wxj73tpvqt"]
+
+[ext_resource type="Script" uid="uid://u2n53hyi2ivr" path="res://scripts/base64_tool.gd" id="1_ywglx"]
+[ext_resource type="Theme" uid="uid://cvjkotbfb80tq" path="res://assets/UIMainTheme.tres" id="2_vm1ak"]
+
+[node name="Base64Tool" type="Control" unique_id=491759542]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ywglx")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1007637128]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.8
+
+[node name="DefangIPList" type="VBoxContainer" parent="HBoxContainer" unique_id=550419540]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/DefangIPList" unique_id=143985804]
+layout_mode = 2
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+text = "Base64 Encode String"
+horizontal_alignment = 1
+
+[node name="EncodeText" type="TextEdit" parent="HBoxContainer/DefangIPList" unique_id=925115390]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EncodeButton" type="Button" parent="HBoxContainer/DefangIPList" unique_id=2021605535]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("2_vm1ak")
+text = "Execute"
+
+[node name="DefangURLList" type="VBoxContainer" parent="HBoxContainer" unique_id=1862817948]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/DefangURLList" unique_id=234696991]
+layout_mode = 2
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+text = "Base64 Decode String"
+horizontal_alignment = 1
+
+[node name="DecodeText" type="TextEdit" parent="HBoxContainer/DefangURLList" unique_id=1236460669]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DecodeButton" type="Button" parent="HBoxContainer/DefangURLList" unique_id=1974876952]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("2_vm1ak")
+text = "Execute"

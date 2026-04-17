@@ -44,7 +44,12 @@ func init_defender_token() -> void:
 	if defender_client_id == "" or defender_client_secret == "" or defender_tenant_id == "":
 		return
 	var temp: Dictionary = await get_defender_token()
-	defender_token = temp.get("access_token")
+	
+	if temp.get("access_token"):
+		defender_token = temp.get("access_token")
+	else:
+		defender_token = "Unable to get token."
+		
 
 func _start_request(url: String, headers: Array, method: int = HTTPClient.METHOD_GET, body: String = "") -> Dictionary:
 	if is_requesting:
@@ -396,7 +401,7 @@ func download_template_csv(link, path):
 		
 	is_requesting = true
 	requestHandler.set_download_file(path)
-	var request = await requestHandler.request(link)
+	var request = requestHandler.request(link)
 	if request != OK:
 		push_error("Http request error")
 	is_requesting = false

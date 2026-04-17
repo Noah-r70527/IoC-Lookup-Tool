@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c16stmlctljtk"]
+[gd_scene format=3 uid="uid://c16stmlctljtk"]
 
 [ext_resource type="Script" uid="uid://o3atsqfoq3nu" path="res://scripts/hash_lookup_tool.gd" id="1_q0ckj"]
 
@@ -16,7 +16,7 @@ VBoxContainer/styles/Style = SubResource("StyleBoxFlat_jehqg")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eaxej"]
 bg_color = Color(0, 1, 0, 0.2)
 
-[node name="AnalyticsRuleBuilderTool" type="Control"]
+[node name="AnalyticsRuleBuilderTool" type="Control" unique_id=449694548]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,7 +25,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_q0ckj")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=749706256]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,130 +35,130 @@ grow_vertical = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.8
 
-[node name="SingleLookupPanel" type="VBoxContainer" parent="HBoxContainer"]
+[node name="SingleLookupPanel" type="VBoxContainer" parent="HBoxContainer" unique_id=1797674955]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_8d1pq")
 theme_override_constants/separation = 60
 
-[node name="DisplayName" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+[node name="DisplayName" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel" unique_id=305217385]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 20
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/SingleLookupPanel/DisplayName"]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/SingleLookupPanel/DisplayName" unique_id=161278517]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_eaxej")
 
-[node name="DisplayNameLabel" type="Label" parent="HBoxContainer/SingleLookupPanel/DisplayName/PanelContainer"]
+[node name="DisplayNameLabel" type="Label" parent="HBoxContainer/SingleLookupPanel/DisplayName/PanelContainer" unique_id=370984904]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Display Name"
 horizontal_alignment = 1
 
-[node name="DisplayNameText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/DisplayName"]
+[node name="DisplayNameText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/DisplayName" unique_id=1261040930]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Rule Name"
 
-[node name="DisplayName2" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+[node name="DisplayName2" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel" unique_id=1197086436]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 20
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/SingleLookupPanel/DisplayName2"]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/SingleLookupPanel/DisplayName2" unique_id=850970695]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_eaxej")
 
-[node name="DisplayNameLabel" type="Label" parent="HBoxContainer/SingleLookupPanel/DisplayName2/PanelContainer"]
+[node name="DisplayNameLabel" type="Label" parent="HBoxContainer/SingleLookupPanel/DisplayName2/PanelContainer" unique_id=1245776748]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Display Name"
 horizontal_alignment = 1
 
-[node name="DisplayNameText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/DisplayName2"]
+[node name="DisplayNameText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/DisplayName2" unique_id=140070923]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Rule Name"
 
-[node name="DisplayName3" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+[node name="DisplayName3" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel" unique_id=2074315320]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 20
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/SingleLookupPanel/DisplayName3"]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/SingleLookupPanel/DisplayName3" unique_id=1473510922]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_eaxej")
 
-[node name="DisplayNameLabel" type="Label" parent="HBoxContainer/SingleLookupPanel/DisplayName3/PanelContainer"]
+[node name="DisplayNameLabel" type="Label" parent="HBoxContainer/SingleLookupPanel/DisplayName3/PanelContainer" unique_id=569951516]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Display Name"
 horizontal_alignment = 1
 
-[node name="DisplayNameText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/DisplayName3"]
+[node name="DisplayNameText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/DisplayName3" unique_id=1303694510]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Rule Name"
 
-[node name="DisplayName4" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+[node name="DisplayName4" type="HBoxContainer" parent="HBoxContainer/SingleLookupPanel" unique_id=1699885997]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 20
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/SingleLookupPanel/DisplayName4"]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/SingleLookupPanel/DisplayName4" unique_id=1167899149]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_eaxej")
 
-[node name="DisplayNameLabel" type="Label" parent="HBoxContainer/SingleLookupPanel/DisplayName4/PanelContainer"]
+[node name="DisplayNameLabel" type="Label" parent="HBoxContainer/SingleLookupPanel/DisplayName4/PanelContainer" unique_id=658628054]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Display Name"
 horizontal_alignment = 1
 
-[node name="DisplayNameText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/DisplayName4"]
+[node name="DisplayNameText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/DisplayName4" unique_id=1134929082]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Rule Name"
 
-[node name="MultiHashPanel" type="VBoxContainer" parent="HBoxContainer/SingleLookupPanel"]
+[node name="MultiHashPanel" type="VBoxContainer" parent="HBoxContainer/SingleLookupPanel" unique_id=1255043004]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 
-[node name="Label" type="Label" parent="HBoxContainer/SingleLookupPanel/MultiHashPanel"]
+[node name="Label" type="Label" parent="HBoxContainer/SingleLookupPanel/MultiHashPanel" unique_id=1416214335]
 layout_mode = 2
 size_flags_vertical = 0
 size_flags_stretch_ratio = 0.0
 text = "KQL Query"
 horizontal_alignment = 1
 
-[node name="MultiHashText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/MultiHashPanel"]
+[node name="MultiHashText" type="TextEdit" parent="HBoxContainer/SingleLookupPanel/MultiHashPanel" unique_id=1337656474]
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MultiHashPanel" type="VBoxContainer" parent="HBoxContainer"]
+[node name="MultiHashPanel" type="VBoxContainer" parent="HBoxContainer" unique_id=688635449]
 layout_mode = 2
 size_flags_horizontal = 3

@@ -8,12 +8,16 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="NDRTech Security Tool"
-config/version="1.6"
+config/version="1.7"
 run/main_scene="uid://dy77c8ent20lg"
-config/features=PackedStringArray("4.4", "Mobile")
+config/features=PackedStringArray("4.6", "Mobile")
 config/icon="uid://dksnqbxt47wv7"
 config/windows_native_icon="res://icon.ico"
 

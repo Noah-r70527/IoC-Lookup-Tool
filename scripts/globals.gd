@@ -13,7 +13,8 @@ var SCENE_TO_TOOL_NAME = {
 	"res://scenes/settings/Settings.tscn": "Settings",
 	"res://scenes/tools/HashLookupTool.tscn": "Hash Lookup Tool",
 	"res://scenes/tools/DefangTool.tscn": "Defang Tool",
-	"res://scenes/tools/DefenderIndicatorTool.tscn": "Defender Indicator Tool"
+	"res://scenes/tools/DefenderIndicatorTool.tscn": "Defender Indicator Tool",
+	"res://scenes/tools/Base64Tool.tscn": "Base64 Tool"
 }
 
 func _ready() -> void:

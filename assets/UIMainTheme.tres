@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://cvjkotbfb80tq"]
+[gd_resource type="Theme" format=3 uid="uid://cvjkotbfb80tq"]
 
 [ext_resource type="StyleBox" uid="uid://do1dbk82rqeg0" path="res://assets/StyleBoxFlatPreset.tres" id="1_u378m"]
 

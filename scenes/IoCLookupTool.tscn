@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dy77c8ent20lg"]
+[gd_scene format=3 uid="uid://dy77c8ent20lg"]
 
 [ext_resource type="Theme" uid="uid://cvjkotbfb80tq" path="res://assets/UIMainTheme.tres" id="1_5qg7n"]
 [ext_resource type="Script" uid="uid://ddqcffego8o3y" path="res://scripts/ioc_lookup_tool.gd" id="1_erkcc"]
@@ -28,7 +28,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="IoCLookupTool" type="Control"]
+[node name="IoCLookupTool" type="Control" unique_id=313735193]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,76 +39,81 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_erkcc")
 
-[node name="MainContainer" type="PanelContainer" parent="."]
-layout_mode = 2
+[node name="MainContainer" type="PanelContainer" parent="." unique_id=2118547374]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_5qg7n")
 
-[node name="MainSplitter" type="HBoxContainer" parent="MainContainer"]
+[node name="MainSplitter" type="HBoxContainer" parent="MainContainer" unique_id=1415682482]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="LeftVbox" type="VBoxContainer" parent="MainContainer/MainSplitter"]
+[node name="LeftVbox" type="VBoxContainer" parent="MainContainer/MainSplitter" unique_id=1878348571]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.35
 theme_override_constants/separation = 0
 
-[node name="ToolSelection" type="PanelContainer" parent="MainContainer/MainSplitter/LeftVbox"]
+[node name="ToolSelection" type="PanelContainer" parent="MainContainer/MainSplitter/LeftVbox" unique_id=418900435]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = ExtResource("3_erkcc")
 
-[node name="ToolScroller" type="ScrollContainer" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection"]
+[node name="ToolScroller" type="ScrollContainer" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection" unique_id=1342567897]
 layout_mode = 2
 
-[node name="ToolVbox" type="VBoxContainer" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller"]
+[node name="ToolVbox" type="VBoxContainer" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller" unique_id=999028164]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="IP Lookup Tool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
+[node name="IP Lookup Tool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" unique_id=1043249495 instance=ExtResource("3_ra6i8")]
 layout_mode = 2
 tool_path = "res://scenes/tools/IPLookupTool.tscn"
 
-[node name="Hash Lookup Tool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
+[node name="Hash Lookup Tool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" unique_id=714733588 instance=ExtResource("3_ra6i8")]
 visible = false
 layout_mode = 2
 tool_name = "Hash Lookup Tool"
 tool_path = "res://scenes/tools/HashLookupTool.tscn"
 
-[node name="URL Lookup Tool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
+[node name="URL Lookup Tool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" unique_id=11993750 instance=ExtResource("3_ra6i8")]
 layout_mode = 2
 tool_name = "URL Lookup Tool"
 tool_path = "res://scenes/tools/UrlLookupTool.tscn"
 
-[node name="DefangTool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
+[node name="DefangTool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" unique_id=488826266 instance=ExtResource("3_ra6i8")]
 layout_mode = 2
 tool_name = "Defang Tool"
 tool_path = "res://scenes/tools/DefangTool.tscn"
 
-[node name="DefenderIndicatorTool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" instance=ExtResource("3_ra6i8")]
+[node name="DefenderIndicatorTool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" unique_id=1552349813 instance=ExtResource("3_ra6i8")]
 layout_mode = 2
 tool_name = "Defender Indicator Tool"
 tool_path = "res://scenes/tools/DefenderIndicatorTool.tscn"
 
-[node name="SettingsBox" type="PanelContainer" parent="MainContainer/MainSplitter/LeftVbox"]
+[node name="Base64Tool" parent="MainContainer/MainSplitter/LeftVbox/ToolSelection/ToolScroller/ToolVbox" unique_id=576581522 instance=ExtResource("3_ra6i8")]
+layout_mode = 2
+tool_name = "Base64 Tool"
+tool_path = "res://scenes/tools/Base64Tool.tscn"
+
+[node name="SettingsBox" type="PanelContainer" parent="MainContainer/MainSplitter/LeftVbox" unique_id=267115532]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = ExtResource("3_erkcc")
 
-[node name="SettingsVbox" type="VBoxContainer" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox"]
+[node name="SettingsVbox" type="VBoxContainer" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox" unique_id=1762006088]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="CurrentToolLabel" type="Label" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox"]
+[node name="CurrentToolLabel" type="Label" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox" unique_id=270309814]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -116,41 +121,41 @@ text = "Current Tool:
 IP Lookup Tool"
 horizontal_alignment = 1
 
-[node name="SettingsButton" type="Button" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox"]
+[node name="SettingsButton" type="Button" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox" unique_id=1698827094]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Settings"
 
-[node name="Quit Button" type="Button" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox"]
+[node name="Quit Button" type="Button" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox" unique_id=246992772]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Quit Application"
 
-[node name="test" type="Button" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox"]
+[node name="test" type="Button" parent="MainContainer/MainSplitter/LeftVbox/SettingsBox/SettingsVbox" unique_id=717616911]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Test"
 
-[node name="RightVbox" type="VBoxContainer" parent="MainContainer/MainSplitter"]
+[node name="RightVbox" type="VBoxContainer" parent="MainContainer/MainSplitter" unique_id=913410011]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="DisplayVbox" type="VBoxContainer" parent="MainContainer/MainSplitter/RightVbox"]
+[node name="DisplayVbox" type="VBoxContainer" parent="MainContainer/MainSplitter/RightVbox" unique_id=885660671]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="DisplayContainer" type="PanelContainer" parent="MainContainer/MainSplitter/RightVbox/DisplayVbox"]
+[node name="DisplayContainer" type="PanelContainer" parent="MainContainer/MainSplitter/RightVbox/DisplayVbox" unique_id=1089400276]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = ExtResource("4_ra6i8")
 
-[node name="OutputDisplay" type="RichTextLabel" parent="MainContainer/MainSplitter/RightVbox/DisplayVbox/DisplayContainer"]
+[node name="OutputDisplay" type="RichTextLabel" parent="MainContainer/MainSplitter/RightVbox/DisplayVbox/DisplayContainer" unique_id=555283048]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 2
@@ -160,13 +165,13 @@ context_menu_enabled = true
 selection_enabled = true
 script = ExtResource("6_f1054")
 
-[node name="ProgressBarContainer" type="HBoxContainer" parent="MainContainer/MainSplitter/RightVbox/DisplayVbox"]
+[node name="ProgressBarContainer" type="HBoxContainer" parent="MainContainer/MainSplitter/RightVbox/DisplayVbox" unique_id=1223292982]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
 script = ExtResource("6_00uwb")
 
-[node name="ProgressBar" type="ProgressBar" parent="MainContainer/MainSplitter/RightVbox/DisplayVbox/ProgressBarContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="MainContainer/MainSplitter/RightVbox/DisplayVbox/ProgressBarContainer" unique_id=1540704205]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -177,7 +182,7 @@ max_value = 1.0
 value = 1.0
 show_percentage = false
 
-[node name="ProgressLabel" type="Label" parent="MainContainer/MainSplitter/RightVbox/DisplayVbox/ProgressBarContainer/ProgressBar"]
+[node name="ProgressLabel" type="Label" parent="MainContainer/MainSplitter/RightVbox/DisplayVbox/ProgressBarContainer/ProgressBar" unique_id=895952060]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -192,17 +197,17 @@ text = "Progress: 10/100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ToolBox" type="PanelContainer" parent="MainContainer/MainSplitter/RightVbox"]
+[node name="ToolBox" type="PanelContainer" parent="MainContainer/MainSplitter/RightVbox" unique_id=1015220453]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = ExtResource("4_ra6i8")
 
-[node name="IpLookupTool" parent="MainContainer/MainSplitter/RightVbox/ToolBox" instance=ExtResource("5_p6akj")]
+[node name="IpLookupTool" parent="MainContainer/MainSplitter/RightVbox/ToolBox" unique_id=916309392 instance=ExtResource("5_p6akj")]
 layout_mode = 2
 
-[node name="HTTPRequestHandler" type="HTTPRequest" parent="."]
+[node name="HTTPRequestHandler" type="HTTPRequest" parent="." unique_id=1765602132]
 unique_name_in_owner = true
 script = ExtResource("7_ra6i8")
 

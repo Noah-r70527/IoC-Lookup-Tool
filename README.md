@@ -38,6 +38,10 @@ A lightweight Indicator of Compromise (IoC) investigation tool built entirely wi
 - **Defang IPs** — converts valid IPv4 addresses to non-clickable format and writes results to `DefangedOutput/defanged_ips.csv`
 - **Defang URLs** — converts URLs to defanged format and writes results to `DefangedOutput/defanged_urls.csv`
 
+### Base64 Tool
+- **Encode Text** - Encode text to Base64
+- **Decode Text** - Decode text from Base64
+
 ---
 
 ## IoC Cache

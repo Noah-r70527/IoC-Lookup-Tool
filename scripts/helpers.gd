@@ -183,6 +183,7 @@ static func rearm_url(input_url):
 		return [temp, true]
 	return [input_url, false]
 
+
 static func _init_create_dirs():
 	var dir_access = DirAccess.open(OS.get_executable_path().get_base_dir())
 	if not dir_access.dir_exists("IPLookups"):
